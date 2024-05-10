@@ -1,1 +1,1 @@
-# se_project_aroundtheus
+# Around the U.S.
