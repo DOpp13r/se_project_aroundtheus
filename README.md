@@ -15,8 +15,8 @@ TripleTen's Sprint 3 project implements all the lessons and tools from the previ
 - Figma
 - Media Queries
 
-- **Figma**
-  One of the lessons during this Sprint was the introduction to Figma, a collaborative platform that allows for web-based graphics. It allows for innovative design prototypes to be created and developed. For this project, we were to follow the project's design through this Sprint's [Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1).
+- ## Figma
+  One of the lessons during this Sprint was the introduction to Figma, a collaborative platform that allows for web-based graphics. It allows for innovative design prototypes to be created and developed. For this project, we were to come up with a way to replicate the project's design through this [Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1).
 
 ## Plans on improving the project
 
