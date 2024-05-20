@@ -27,5 +27,10 @@ One of the lessons during this Sprint was the introduction to Figma, a collabora
   - add a delete button to delete the card from the page
 
 - Profile:
+
   - 'add' button could have a smooth transition where it enlarges and returns back to normal when the user hovers over
   - edit button could be implemented with an animation
+
+- Page:
+
+  - set screen view for tablets
