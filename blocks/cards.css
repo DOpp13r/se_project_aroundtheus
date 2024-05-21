@@ -48,8 +48,8 @@
 
 .cards__like-button {
   background: transparent url(../images/heart-icon.svg) center no-repeat;
-  width: 21px;
-  height: 18px;
+  min-width: 21px;
+  min-height: 18px;
   border: none;
 }
 
