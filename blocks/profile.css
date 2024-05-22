@@ -31,7 +31,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-align: center;
-  min-width: max-content;
+  max-width: 373px;
 }
 
 .profile__edit-button {
