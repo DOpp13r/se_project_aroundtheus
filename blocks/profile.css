@@ -78,7 +78,6 @@
 @media screen and (max-width: 563px) {
   .profile__name {
     font-size: 22px;
-    min-width: 105px;
   }
 
   .profile__description {
@@ -110,7 +109,6 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 0;
-    max-height: 50px;
   }
 
   .profile__info:last-child {
@@ -118,12 +116,8 @@
   }
 
   .profile__name {
-    font-size: 22px;
     max-width: 196px;
     margin-left: 43px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
     text-align: center;
   }
 
