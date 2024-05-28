@@ -1,0 +1,126 @@
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #000;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal_opened {
+  display: flex;
+}
+
+.modal__container {
+  margin: auto;
+  position: relative;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 430px;
+  height: 330px;
+}
+.modal__exit {
+  background: url(../images/close-icon.svg) center no-repeat;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  cursor: pointer;
+  top: -40px;
+  right: -45px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.modal__heading {
+  max-width: 330px;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 34px 0 54px 36px;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: auto;
+  max-width: 358px;
+  row-gap: 30px;
+}
+
+.modal__name {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid rgb(84 84 84 / 0.7);
+}
+
+.modal__description {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid rgb(84 84 84 / 0.7);
+  height: 27px;
+}
+
+.modal__button {
+  background-color: #000;
+  color: #fff;
+  border-radius: 2px;
+  border: none;
+  height: 50px;
+  padding: 0;
+  cursor: pointer;
+  margin-top: 18px;
+}
+
+@media screen and (max-width: 563px) {
+  .modal__container {
+    max-width: 282px;
+    height: 322px;
+  }
+
+  .modal__heading {
+    max-width: 238px;
+    margin: 25px 22px 75px;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .modal__form {
+    max-width: 238px;
+  }
+
+  .modal__name {
+    height: 27px;
+    padding: 0;
+  }
+
+  .modal__description {
+    height: 27px;
+    padding: 0;
+  }
+  .modal__button {
+    min-width: 238px;
+    height: 46px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .modal__exit {
+    width: 26px;
+    height: 26px;
+    right: 0px;
+  }
+}
