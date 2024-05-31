@@ -31,7 +31,11 @@
           />
           <div class="profile__info">
             <h1 class="profile__name">Jacques Cousteau</h1>
-            <button class="profile__edit-button" type="button"></button>
+            <button
+              class="profile__edit-button"
+              id="profile-edit-button"
+              type="button"
+            ></button>
             <p class="profile__description">Explorer</p>
           </div>
           <button class="profile__add-button" type="button"></button>
@@ -114,9 +118,9 @@
       </footer>
     </div>
 
-    <div class="modal modal_opened">
+    <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button class="modal__exit"></button>
+        <button class="modal__exit" id="modal-exit-button"></button>
         <p class="modal__heading">Edit Profile</p>
         <form class="modal__form">
           <input class="modal__name" type="text" id="name" placeholder="Name" />
