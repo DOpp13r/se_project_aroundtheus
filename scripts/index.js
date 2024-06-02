@@ -25,14 +25,62 @@ const initialCards = [
   },
 ];
 
+/*    Elements   */
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const modalExitButton = document.querySelector("#modal-exit-button");
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
+const profileNameInput = document.querySelector("#profile-name-input");
+const profileDescriptionInput = document.querySelector(
+  "#profile-description-input"
+);
+const profileEditForm = profileEditModal.querySelector(".modal__form");
+const cardListEl = document.querySelector(".cards__list");
+const cardTemplate =
+  document.querySelector("#card-template").content.firstElementChild;
 
+/*    Functions   */
+function closePopup() {
+  profileEditModal.classList.remove("modal_opened");
+}
+
+function getCardElement(data) {
+  // clone the template element with all its content and store it in a cardElement variable
+  const cardElement = cardTemplate.cloneNode(true);
+  // access the card title and image and store them in variables
+  const cardImageEl = cardElement.querySelector(".cards__image");
+  const cardNameEl = cardElement.querySelector(".cards__name");
+  // set the path to the image to the link field of the object
+  cardImageEl.src = data.link;
+  // set the image alt text to the name field of the object
+  cardImageEl.alt = data.name;
+  // set the card title to the name field of the object, too
+  cardNameEl.textContent = data.name;
+  // return the ready HTML element with the filled-in data
+  return cardElement;
+}
+
+/*    Event Handlers    */
+function handleProfileEditSubmit(e) {
+  e.preventDefault();
+  profileName.textContent = profileNameInput.value;
+  profileDescription.textContent = profileDescriptionInput.value;
+  closePopup();
+}
+
+/*    Event Listeners  */
 profileEditButton.addEventListener("click", () => {
+  profileNameInput.value = profileName.textContent;
+  profileDescriptionInput.value = profileDescription.textContent;
   profileEditModal.classList.add("modal_opened");
 });
 
-modalExitButton.addEventListener("click", () => {
-  profileEditModal.classList.remove("modal_opened");
+modalExitButton.addEventListener("click", closePopup);
+
+profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+
+initialCards.forEach((data) => {
+  const cardElement = getCardElement(data);
+  cardListEl.append(cardElement);
 });
