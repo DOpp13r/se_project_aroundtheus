@@ -13,7 +13,7 @@
   display: flex;
 }
 
-.modal__container {
+.modal__profile-container {
   margin: auto;
   position: relative;
   background-color: #fff;
@@ -43,7 +43,7 @@
   margin: 34px 0 54px 36px;
 }
 
-.modal__form {
+.modal__profile-form {
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -86,7 +86,7 @@
 }
 
 @media screen and (max-width: 563px) {
-  .modal__container {
+  .modal__profile-container {
     max-width: 282px;
     height: 322px;
   }
@@ -99,7 +99,7 @@
     line-height: 22px;
   }
 
-  .modal__form {
+  .modal__profile-form {
     max-width: 238px;
   }
 
