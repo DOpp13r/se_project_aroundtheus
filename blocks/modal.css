@@ -21,7 +21,7 @@
   width: 430px;
   height: 330px;
 }
-.modal__exit {
+.modal__close {
   background: url(../images/close-icon.svg) center no-repeat;
   border: none;
   background-color: transparent;

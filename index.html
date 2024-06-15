@@ -38,7 +38,11 @@
             ></button>
             <p class="profile__description">Explorer</p>
           </div>
-          <button class="profile__add-button" type="button"></button>
+          <button
+            class="profile__add-button"
+            id="add-card-button"
+            type="button"
+          ></button>
         </section>
 
         <section class="cards">
@@ -51,9 +55,14 @@
       </footer>
     </div>
 
+    <!--  Edit Modal -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button class="modal__exit" id="modal-exit-button"></button>
+        <button
+          class="modal__close"
+          id="modal-close-button"
+          type="button"
+        ></button>
         <p class="modal__heading">Edit Profile</p>
         <form class="modal__form">
           <input
@@ -70,7 +79,36 @@
             type="text"
             placeholder="Description"
           />
-          <button class="modal__button">Save</button>
+          <button class="modal__button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!--  Add Modal  -->
+    <div class="modal" id="add-card-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          id="modal-close-button"
+          type="button"
+        ></button>
+        <p class="modal__heading">New Place</p>
+        <form class="modal__form">
+          <input
+            class="modal__name .modal__input_type_title"
+            id="add-card-title-input"
+            name="title"
+            type="text"
+            placeholder="Title"
+          />
+          <input
+            class="modal__description .modal__input_type_url"
+            id="add-card-url-input"
+            name="link"
+            type="text"
+            placeholder="Image URL"
+          />
+          <button class="modal__button" type="submit">Create</button>
         </form>
       </div>
     </div>
