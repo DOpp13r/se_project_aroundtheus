@@ -119,9 +119,9 @@
     margin-right: auto;
   }
 
-  .modal__exit {
-    width: 26px;
-    height: 26px;
+  .modal__close {
+    width: 31px;
+    height: 30px;
     right: 0px;
   }
 }
