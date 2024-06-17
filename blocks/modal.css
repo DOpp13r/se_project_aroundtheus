@@ -34,6 +34,10 @@
   padding: 0;
 }
 
+.modal__close:hover {
+  opacity: 0.6;
+}
+
 .modal__heading {
   max-width: 330px;
   font-family: "Inter", Arial, sans-serif;
@@ -85,6 +89,9 @@
   margin-top: 18px;
 }
 
+.modal__button:hover {
+  opacity: 0.8;
+}
 @media screen and (max-width: 563px) {
   .modal__container {
     max-width: 282px;
