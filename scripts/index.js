@@ -66,7 +66,7 @@ function closeAddCardModal() {
 
 function renderCard(data) {
   const cardElement = getCardElement(data);
-  cardListEl.append(getCardElement(data));
+  cardListEl.append(cardElement);
 }
 
 function getCardElement(data) {
@@ -75,6 +75,12 @@ function getCardElement(data) {
   // access the card title and image and store them in variables
   const cardImageEl = cardElement.querySelector(".cards__image");
   const cardNameEl = cardElement.querySelector(".cards__name");
+  // access Like button for each card to listen for a click, and set it to be active
+  const likeButton = cardElement.querySelector(".cards__like-button");
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("cards__like-button_active");
+  });
+
   // set the path to the image to the link field of the object
   cardImageEl.src = data.link;
   // set the image alt text to the name field of the object
