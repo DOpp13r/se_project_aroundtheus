@@ -4,7 +4,7 @@ TripleTen's Sprint 3 project implements all the lessons and tools from the previ
 
 [Youtube video](https://youtu.be/WX3uOKGmLIk)
 
-[Project](https://dopp13r.github.io/se_project_aroundtheus/)
+[Project](https://github.com/DOpp13r/se_project_aroundtheus?tab=readme-ov-file)
 
 ## Project Features
 
