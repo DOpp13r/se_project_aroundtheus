@@ -76,10 +76,10 @@ function getCardElement(data) {
   const cardImageEl = cardElement.querySelector(".cards__image");
   const cardNameEl = cardElement.querySelector(".cards__name");
   // access Delete button for each card to listen for a click, and delete card
-  /*const deleteButton = cardElement.querySelector("");
+  const deleteButton = cardElement.querySelector(".cards__delete");
   deleteButton.addEventListener("click", () => {
     cardElement.remove();
-  }); */
+  });
   // access Like button for each card to listen for a click, and set it to be active
   const likeButton = cardElement.querySelector(".cards__like-button");
   likeButton.addEventListener("click", () => {
