@@ -75,6 +75,9 @@ function closePreviewImageModal() {
   previewImageModal.classList.remove("modal_opened");
 }
 
+function openPreviewImageModal() {
+  previewImageModal.classList.add("modal_opened");
+}
 function renderCard(data) {
   const cardElement = getCardElement(data);
   cardListEl.append(cardElement);
@@ -133,7 +136,7 @@ function handlePreviewImage(data) {
   previewImage.src = data.link;
   previewImage.alt = data.name;
   previewImageCaption.textContent = data.name;
-  closePreviewImageModal();
+  openPreviewImageModal();
 }
 
 /*    Event Listeners  */
