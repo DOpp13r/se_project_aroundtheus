@@ -14,6 +14,7 @@
 }
 
 .cards__content {
+  position: relative;
   list-style-type: none;
   max-width: 282px;
   min-height: 361px;
@@ -25,6 +26,24 @@
   width: 282px;
   height: 282px;
   background-size: cover;
+}
+
+.cards__delete {
+  background: transparent url(../images/trash.svg) center no-repeat;
+  position: absolute;
+  display: flex;
+  top: 18px;
+  right: 15px;
+  padding: 0;
+  min-width: 18px;
+  min-height: 19.3px;
+  z-index: 10;
+  border: none;
+}
+
+.cards__delete:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 .cards__description {
