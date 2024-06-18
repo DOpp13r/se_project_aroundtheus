@@ -51,6 +51,13 @@ const addCardForm = addCardModal.querySelector(".modal__form");
 const addCardNameInput = addCardForm.querySelector("#add-card-title-input");
 const addCardUrlInput = addCardForm.querySelector("#add-card-url-input");
 
+const previewImageModal = document.querySelector("#preview-image-modal");
+const previewImage = document.querySelector(".modal__preview-image");
+const previewCloseButton = previewImageModal.querySelector(
+  "#modal-close-button"
+);
+const previewImageCaption = document.querySelector(".modal__image-caption");
+
 const cardListEl = document.querySelector(".cards__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -62,6 +69,10 @@ function closeProfileModal() {
 
 function closeAddCardModal() {
   addCardModal.classList.remove("modal_opened");
+}
+
+function closePreviewImageModal() {
+  previewImageModal.classList.remove("modal_opened");
 }
 
 function renderCard(data) {
@@ -85,6 +96,9 @@ function getCardElement(data) {
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("cards__like-button_active");
   });
+  // access image preview to listen for a click to close the preview
+  cardImageEl.addEventListener("click", () => handlePreviewImage(data));
+  previewCloseButton.addEventListener("click", () => closePreviewImageModal());
   // set the path to the image to the link field of the object
   cardImageEl.src = data.link;
   // set the image alt text to the name field of the object
@@ -113,6 +127,13 @@ function handleAddCardSubmit(e) {
   });
   cardListEl.append(cardElement);
   closeAddCardModal();
+}
+
+function handlePreviewImage(data) {
+  previewImage.src = data.link;
+  previewImage.alt = data.name;
+  previewImageCaption.textContent = data.name;
+  closePreviewImageModal();
 }
 
 /*    Event Listeners  */

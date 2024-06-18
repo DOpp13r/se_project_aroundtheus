@@ -9,8 +9,7 @@
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  row-gap: 20px;
+  gap: 20px 17px;
 }
 
 .cards__content {
@@ -26,6 +25,7 @@
   width: 282px;
   height: 282px;
   background-size: cover;
+  cursor: pointer;
 }
 
 .cards__delete {
@@ -37,7 +37,6 @@
   padding: 0;
   min-width: 18px;
   min-height: 19.3px;
-  z-index: 10;
   border: none;
 }
 
