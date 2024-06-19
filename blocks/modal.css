@@ -45,6 +45,7 @@
 }
 
 .modal__heading {
+  position: absolute;
   max-width: 330px;
   font-family: "Inter", Arial, sans-serif;
   font-weight: 900;
@@ -54,6 +55,7 @@
 }
 
 .modal__form {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 0;
