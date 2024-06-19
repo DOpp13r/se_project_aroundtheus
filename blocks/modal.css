@@ -9,11 +9,12 @@
   background-color: rgba(0, 0, 0, 0.5);
   visibility: hidden;
   opacity: 0;
+  pointer-events: none;
   transition: visibility 0.5s, opacity 0.5s linear;
 }
 
 .modal_opened {
-  display: flex;
+  pointer-events: all;
   visibility: visible;
   opacity: 1;
   transition: visibility 0s, opacity 0.5s linear;
@@ -65,18 +66,7 @@
   margin-top: 111px;
 }
 
-.modal__name {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid rgb(84 84 84 / 0.7);
-  height: 27px;
-}
-
-.modal__description {
+.modal__input {
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
@@ -169,7 +159,7 @@
     padding: 0;
   }
 
-  .modal__description {
+  .modal__input {
     height: 27px;
     padding: 0;
   }
