@@ -94,9 +94,6 @@ function getCardElement(data) {
   });
   // access image preview to listen for a click to close the preview
   cardImageEl.addEventListener("click", () => handlePreviewImage(data));
-  previewCloseButton.addEventListener("click", () =>
-    closeModal(previewImageModal)
-  );
   // set the path to the image to the link field of the object
   cardImageEl.src = data.link;
   // set the image alt text to the name field of the object
@@ -151,6 +148,10 @@ addCardButton.addEventListener("click", () => {
 });
 addCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
 addCardForm.addEventListener("submit", handleAddCardCreate);
+
+previewCloseButton.addEventListener("click", () =>
+  closeModal(previewImageModal)
+);
 
 initialCards.forEach((data) => {
   renderCard(data, cardListEl);
