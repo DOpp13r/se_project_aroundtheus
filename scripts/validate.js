@@ -1,6 +1,24 @@
-// function showInputError(formElement, inputElement, {inputErrorClass, errorClass}) {
+function showInputError(
+  formElement,
+  inputElement,
+  { inputErrorClass, errorClass }
+) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add(inputErrorClass);
+  errorElement.classList.add(errorClass);
+  errorElement.textContent = inputElement.validationMessage;
+}
 
-// }
+function hideInputError(
+  formElement,
+  inputElement,
+  { inputErrorClass, errorClass }
+) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove(inputErrorClass);
+  errorElement.classList.remove(errorClass);
+  errorElement.textContent = "";
+}
 
 const config = {
   formSelector: ".modal__form",
