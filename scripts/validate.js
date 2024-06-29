@@ -20,6 +20,25 @@ function hideInputError(
   errorElement.textContent = "";
 }
 
+function checkInputValid(formElement, inputElement, options) {
+  if (!inputElement.validity.valid) {
+    return showInputError(formElement, inputElement, options);
+  } else hideInputError(formElement, inputElement, options);
+}
+
+function inputInvalid(inputList) {
+  return inputList.some((inputElement) => !inputElement.validity.valid);
+}
+
+function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
+  if (inputInvalid(inputEls)) {
+    submitButton.classList.add(inactiveButtonClass);
+    submitButton.disabled = true;
+    return;
+  } else submitButton.classList.remove(inactiveButtonClass);
+  submitButton.disabled = false;
+}
+
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
