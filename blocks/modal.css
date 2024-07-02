@@ -80,8 +80,7 @@
 
 .modal__error {
   position: absolute;
-  display: block;
-  overflow: hidden;
+  display: flex;
   color: #ff0000;
   font-family: "Inter", Arial, sans-serif;
   font-weight: 400;
