@@ -117,7 +117,7 @@
               type="text"
               placeholder="Title"
               minlength="2"
-              maxlength="200"
+              maxlength="30"
               required
             />
             <span class="modal__error" id="modal-input-title-error"></span>
@@ -127,13 +127,19 @@
               class="modal__input"
               id="add-card-url-input"
               name="link"
-              type="text"
+              type="url"
               placeholder="Image URL"
               required
             />
             <span class="modal__error" id="modal-input-url-error"></span>
           </label>
-          <button class="modal__button" type="submit">Create</button>
+          <button
+            class="modal__button modal__button_disabled"
+            type="submit"
+            disabled
+          >
+            Create
+          </button>
         </form>
       </div>
     </div>
@@ -165,5 +171,6 @@
     </template>
 
     <script defer src="./scripts/index.js"></script>
+    <script defer src="./scripts/validation.js"></script>
   </body>
 </html>

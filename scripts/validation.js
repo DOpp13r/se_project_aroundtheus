@@ -3,7 +3,7 @@ function showInputError(
   inputElement,
   { inputErrorClass, errorClass }
 ) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(inputErrorClass);
   errorElement.classList.add(errorClass);
   errorElement.textContent = inputElement.validationMessage;
@@ -14,7 +14,7 @@ function hideInputError(
   inputElement,
   { inputErrorClass, errorClass }
 ) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(inputErrorClass);
   errorElement.classList.remove(errorClass);
   errorElement.textContent = "";
@@ -23,11 +23,12 @@ function hideInputError(
 function checkInputValid(formElement, inputElement, options) {
   if (!inputElement.validity.valid) {
     return showInputError(formElement, inputElement, options);
-  } else hideInputError(formElement, inputElement, options);
+  }
+  hideInputError(formElement, inputElement, options);
 }
 
 function inputInvalid(inputList) {
-  return inputList.some((inputElement) => !inputElement.validity.valid);
+  return !inputList.every((inputElement) => inputElement.validity.valid);
 }
 
 function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
@@ -35,7 +36,8 @@ function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
     return;
-  } else submitButton.classList.remove(inactiveButtonClass);
+  }
+  submitButton.classList.remove(inactiveButtonClass);
   submitButton.disabled = false;
 }
 
