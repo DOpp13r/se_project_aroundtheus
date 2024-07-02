@@ -115,6 +115,7 @@
 .modal__button_disabled {
   background: solid 1px #fff;
   opacity: 0.2;
+  cursor: default;
 }
 
 .modal__button_disabled:hover {
