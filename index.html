@@ -65,7 +65,7 @@
         ></button>
         <h2 class="modal__heading">Edit Profile</h2>
         <form class="modal__form" id="profile-edit-form">
-          <label class="modal__label">
+          <label for="modal-name-input" class="modal__label">
             <input
               class="modal__input"
               id="profile-name-input"
@@ -76,9 +76,10 @@
               maxlength="40"
               required
             />
-            <span class="modal__error" id="modal-input-name-error"></span>
+            <span class="modal__error" id="profile-name-input-error"></span>
           </label>
-          <label class="modal__label">
+
+          <label for="modal-description-input" class="modal__label">
             <input
               class="modal__input"
               id="profile-description-input"
@@ -90,11 +91,11 @@
               required
             />
             <span
-              class="modal__error"
-              id="modal-input-description-error"
+              class="modal__error modal__error_description"
+              id="profile-description-input-error"
             ></span>
           </label>
-          <button class="modal__button" type="submit">Save</button>
+          <button class="modal__button" type="submit" disabled>Save</button>
         </form>
       </div>
     </div>
@@ -109,7 +110,7 @@
         ></button>
         <h2 class="modal__heading">New Place</h2>
         <form class="modal__form" id="add-card-form">
-          <label class="modal__label">
+          <label for="modal-title-input" class="modal__label">
             <input
               class="modal__input"
               id="add-card-title-input"
@@ -120,9 +121,13 @@
               maxlength="30"
               required
             />
-            <span class="modal__error" id="modal-input-title-error"></span>
+            <span
+              class="modal__error modal__error_title"
+              id="add-card-title-input-error"
+            ></span>
           </label>
-          <label class="modal__label">
+
+          <label for="modal-url-input" class="modal__label">
             <input
               class="modal__input"
               id="add-card-url-input"
@@ -131,7 +136,10 @@
               placeholder="Image URL"
               required
             />
-            <span class="modal__error" id="modal-input-url-error"></span>
+            <span
+              class="modal__error modal__error_url"
+              id="add-card-url-input-error"
+            ></span>
           </label>
           <button
             class="modal__button modal__button_disabled"

@@ -144,7 +144,7 @@ function clickCloseESC(e) {
 }
 
 function clickCloseOverlay(e) {
-  if (e.target === e.currentTarget("modal")) {
+  if (e.target.classList.contains("modal")) {
     closeModal(e.target);
   }
 }
@@ -171,7 +171,7 @@ previewCloseButton.addEventListener("click", () =>
 );
 
 forAllModals.forEach((modal) => {
-  modal.addEventListener("mousedown", clickCloseOverlay);
+  modal.addEventListener("click", clickCloseOverlay);
 });
 
 initialCards.forEach((data) => {

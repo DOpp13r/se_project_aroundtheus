@@ -5,8 +5,8 @@ function showInputError(
 ) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(inputErrorClass);
-  errorElement.classList.add(errorClass);
   errorElement.textContent = inputElement.validationMessage;
+  errorElement.classList.add(errorClass);
 }
 
 function hideInputError(

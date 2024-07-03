@@ -79,13 +79,14 @@
 }
 
 .modal__error {
+  font-family: "Inter", Arial, sans-serif;
   position: absolute;
   display: flex;
   color: #ff0000;
-  font-family: "Inter", Arial, sans-serif;
   font-weight: 400;
   font-size: 12px;
-  line-height: 14.5px;
+  line-height: 12.6px;
+  width: 358px;
   top: 35px;
 }
 
@@ -95,6 +96,11 @@
 
 .modal__error_visible {
   visibility: visible;
+}
+
+.modal__label {
+  position: relative;
+  width: 100%;
 }
 
 .modal__button {
