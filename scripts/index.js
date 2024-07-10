@@ -58,7 +58,7 @@ const previewCloseButton = previewImageModal.querySelector(
 );
 const previewImageCaption = document.querySelector(".modal__image-caption");
 
-const forAllModals = [profileEditModal, addCardModal, previewImageModal];
+const forAllModals = document.querySelectorAll(".modal");
 
 const cardListEl = document.querySelector(".cards__list");
 const cardTemplate =
@@ -73,6 +73,7 @@ function openModal(modal) {
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("keydown", clickCloseESC);
+  console.log("Modal closed", modal);
 }
 
 function renderCard(data) {
@@ -144,7 +145,9 @@ function clickCloseESC(e) {
 }
 
 function clickCloseOverlay(e) {
+  console.log("Clicked on overlay", e.target);
   if (e.target.classList.contains("modal")) {
+    console.log("Closing modal triggered");
     closeModal(e.target);
   }
 }
