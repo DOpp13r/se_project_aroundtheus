@@ -129,12 +129,6 @@
 }
 
 .modal__image {
-  /* display: flex;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  justify-content: center; */
   position: relative;
   display: flex;
   margin: 0 auto;
@@ -143,7 +137,6 @@
 
 .modal__preview {
   position: relative;
-  max-width: 80%;
 }
 .modal__close-preview {
   background: url(../images/close-icon.svg) center no-repeat;
