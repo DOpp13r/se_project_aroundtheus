@@ -1,3 +1,5 @@
+//import Card from "./Card.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -88,7 +90,7 @@ function getCardElement(data) {
   const cardImageEl = cardElement.querySelector(".cards__image");
   const cardNameEl = cardElement.querySelector(".cards__name");
   // access Delete button for each card to listen for a click, and delete card
-  const deleteButton = cardElement.querySelector(".cards__delete");
+  const deleteButton = cardElement.querySelector(".cards__delete-button");
   deleteButton.addEventListener("click", () => {
     cardElement.remove();
   });
@@ -142,6 +144,10 @@ function clickCloseESC(e) {
     const modal = document.querySelector(".modal_opened");
     return closeModal(modal);
   }
+}
+
+function handleImageClick(cardData) {
+  //  card
 }
 
 function clickCloseOverlay(e) {
