@@ -135,6 +135,7 @@ function handleAddCardCreate(e) {
 function handlePreviewImage(data) {
   previewImage.src = data.link;
   previewImage.alt = data.name;
+
   previewImageCaption.textContent = data.name;
   openModal(previewImageModal);
 }
