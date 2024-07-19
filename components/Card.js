@@ -9,7 +9,7 @@ export default class Card {
   _getTemplate() {
     const cardElement = document
       .querySelector(this._cardSelector)
-      .content.querySelector(".card")
+      .content.querySelector(".cards__content")
       .cloneNode(true);
 
     return cardElement;
@@ -20,11 +20,11 @@ export default class Card {
     const cardImage = this._element.querySelector(".cards__image");
     cardImage.src = this._link;
     cardImage.alt = this._name;
-    this._element.querySelector(".cards__title").textContent = this._name;
+    this._element.querySelector(".cards__name").textContent = this._name;
     // set event listener
     this._setEventListeners();
     // return card
-    return this._cardElement;
+    return this._element;
   }
 
   _setEventListeners() {
