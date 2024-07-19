@@ -1,7 +1,7 @@
-// import Card from "../components/Card.js";
-// import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 
-const initialCards = [
+/*const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -64,7 +64,7 @@ const previewImageCaption = document.querySelector(".modal__image-caption");
 const forAllModals = document.querySelectorAll(".modal");
 
 const cardListEl = document.querySelector(".cards__list");
-const cardTemplate =
+/* const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
 /*    Validation    */
@@ -106,6 +106,7 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
+/*
 function getCardElement(data) {
   // clone the template element with all its content and store it in a cardElement variable
   const cardElement = cardTemplate.cloneNode(true);
@@ -156,13 +157,13 @@ function handleAddCardCreate(e) {
   addCardForm.reset();
 }
 
-function handlePreviewImage(data) {
+/* function handlePreviewImage(data) {
   previewImage.src = data.link;
   previewImage.alt = data.name;
 
   previewImageCaption.textContent = data.name;
   openModal(previewImageModal);
-}
+} */
 
 function clickCloseESC(e) {
   if (e.key === "Escape") {
@@ -197,7 +198,7 @@ profileCloseButton.addEventListener("click", () =>
   closeModal(profileEditModal)
 );
 
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+// profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 addCardButton.addEventListener("click", () => {
   openModal(addCardModal);
@@ -214,6 +215,7 @@ forAllModals.forEach((modal) => {
   modal.addEventListener("click", clickCloseOverlay);
 });
 
-initialCards.forEach((data) => {
+/* initialCards.forEach((data) => {
   renderCard(data, cardListEl);
 });
+*/
