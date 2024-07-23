@@ -9,9 +9,6 @@ export default class FormValidator {
     this._inputElements = [
       ...this._formElement.querySelectorAll(this._inputSelector),
     ];
-    this._submitButton = this._formElement.querySelector(
-      this._submitButtonSelector
-    );
   }
 
   _toggleButtonState() {
@@ -84,6 +81,11 @@ export default class FormValidator {
   }
 
   enableValidation() {
+    this._submitButton = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
+    console.log(this._formElement instanceof HTMLFormElement);
+
     this._formElement.addEventListener("submit", (e) => {
       e.preventDefault();
       this._inputElements.forEach((inputElement) =>
