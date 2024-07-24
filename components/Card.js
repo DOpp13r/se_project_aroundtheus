@@ -1,7 +1,7 @@
 export default class Card {
-  constructor(data, cardSelector, handleImageClick) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor({ name, link }, cardSelector, handleImageClick) {
+    this._name = name;
+    this._link = link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
   }
@@ -11,34 +11,41 @@ export default class Card {
       .querySelector(this._cardSelector)
       .content.querySelector(".cards__content")
       .cloneNode(true);
-
-    return cardElement;
   }
 
   getView() {
     this._element = this._getTemplate();
+
     const cardImage = this._element.querySelector(".cards__image");
     cardImage.src = this._link;
     cardImage.alt = this._name;
-    this._element.querySelector(".cards__name").textContent = this._name;
+
+    const cardTitle = this._element.querySelector(".cards__name");
+    cardTitle.textContent = this._name;
     // set event listener
     this._setEventListeners();
     // return card
-    return this._element;
+    return this._cardElement;
   }
 
   _setEventListeners() {
     this._element
       .querySelector(".cards__like-button")
-      .addEventListener("click", () => this._handleLikeIcon());
+      .addEventListener("click", () => {
+        this._handleLikeIcon();
+      });
 
     this._element
       .querySelector(".cards__delete-button")
-      .addEventListener("click", () => this._handleDeleteIcon());
+      .addEventListener("click", () => {
+        this._handleDeleteIcon();
+      });
 
     this._element
       .querySelector(".cards__image")
-      .addEventListener("click", () => this._handleImageClick(data));
+      .addEventListener("click", () => {
+        this._handleImageClick(this._name, this._link);
+      });
   }
 
   _handleLikeIcon() {
@@ -48,7 +55,7 @@ export default class Card {
   }
 
   _handleDeleteIcon() {
-    this._element.remove();
-    this._element = null;
+    this._cardElement.remove();
+    this._cardElement = null;
   }
 }
