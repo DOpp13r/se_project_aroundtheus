@@ -79,8 +79,8 @@ const addFormValidator = new FormValidator(config, addCardForm);
 addCardModal.addEventListener("submit", handleAddCardCreate);
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
-// const cardListEl = document.querySelector(".cards-container");
-//const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
+const cardListEl = document.querySelector(".cards__list");
+// const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
 
 /*    Functions   */
 function openModal(modal) {
@@ -93,22 +93,22 @@ function closeModal(modal) {
   document.removeEventListener("keydown", clickCloseESC);
   console.log("Modal closed", modal);
 }
-
-function getCardElement(data) {
+/* function cardElement(data) {
   const card = new Card(data, "#card-template", handleImageClick);
   const cardElement = card.getView();
   return cardElement;
 }
+*/
 
-/* function renderCard(data, cardListEl) {
-  const cardElement = createCard(data);
-  cardListEl.append(cardElement);
-} */
-
-/* function createCard(data) {
+function createCard(data) {
   const cardElement = new Card(data, "#card-template", handleImageClick);
   return cardElement.getView();
-} */
+}
+
+function renderCard(data, cardsContainer) {
+  const cardElement = createCard(data);
+  cardsContainer.prepend(cardElement);
+}
 
 function handleImageClick(name, link) {
   const modalImage = previewImageModal.querySelector("#modal-preview-image");
@@ -116,6 +116,7 @@ function handleImageClick(name, link) {
   modalImage.src = link;
   modalImage.alt = name;
   modalTitle.textContent = name;
+  openModal(previewImageModal);
   console.log(`Image clicked: ${name}, ${link}`);
 }
 
@@ -161,11 +162,7 @@ function handleAddCardCreate(e) {
   e.preventDefault();
   const name = addCardNameInput.value;
   const link = addCardUrlInput.value;
-  const cardElement = getCardElement({
-    name,
-    link,
-  });
-  cardListEl.prepend(cardElement);
+  renderCard({ name, link }, cardListEl);
   closeModal(addCardModal);
   addCardForm.reset();
 }
@@ -221,5 +218,5 @@ initialCards.forEach((data) => {
   const card = new Card(data, "#card-template", handleImageClick);
   const cardElement = card.getView();
   cardContainer.append(cardElement);
-  //renderCard(data, cardListEl);
+  //  renderCard(data, cardListEl);
 });
