@@ -63,8 +63,8 @@ const addCardNameInput = addCardForm.querySelector("#add-card-title-input");
 const addCardUrlInput = addCardForm.querySelector("#add-card-url-input");
 
 const previewImageModal = document.querySelector("#preview-image-modal");
-const previewImage = document.querySelector("#modal-preview-image");
-const previewImageCaption = document.querySelector("#modal-image-caption");
+// const previewImage = document.querySelector("#modal-preview-image");
+// const previewImageCaption = document.querySelector("#modal-image-caption");
 const previewCloseButton = previewImageModal.querySelector(
   "#modal-close-button"
 );
@@ -76,7 +76,6 @@ console.log(cardContainer);
 
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addCardForm);
-addCardModal.addEventListener("submit", handleAddCardCreate);
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 const cardListEl = document.querySelector(".cards__list");
@@ -203,9 +202,9 @@ profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 addCardButton.addEventListener("click", () => {
   openModal(addCardModal);
 });
+
 addCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
 addCardForm.addEventListener("submit", handleAddCardCreate);
-
 previewCloseButton.addEventListener("click", () =>
   closeModal(previewImageModal)
 );
