@@ -41,12 +41,6 @@ const config = {
   errorClass: "modal__error_visible",
 };
 
-const editFormValidator = new FormValidator(profileEditForm, config);
-const addFormValidator = new FormValidator(addCardForm, config);
-addCardModal.addEventListener("submit", handleAddCardCreate);
-addFormValidator.enableValidation();
-editFormValidator.enableValidation();
-
 /*    Elements   */
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
@@ -69,15 +63,22 @@ const addCardNameInput = addCardForm.querySelector("#add-card-title-input");
 const addCardUrlInput = addCardForm.querySelector("#add-card-url-input");
 
 const previewImageModal = document.querySelector("#preview-image-modal");
-const previewImage = document.querySelector(".modal__preview-image");
+const previewImage = document.querySelector("#modal-preview-image");
+const previewImageCaption = document.querySelector("#modal-image-caption");
 const previewCloseButton = previewImageModal.querySelector(
   "#modal-close-button"
 );
-const previewImageCaption = document.querySelector(".modal__image-caption");
 
 const forAllModals = document.querySelectorAll(".modal");
 
-const cardContainer = document.querySelector(".cards-container");
+const cardContainer = document.querySelector(".cards__list");
+console.log(cardContainer);
+
+const editFormValidator = new FormValidator(config, profileEditForm);
+const addFormValidator = new FormValidator(config, addCardForm);
+addCardModal.addEventListener("submit", handleAddCardCreate);
+addFormValidator.enableValidation();
+editFormValidator.enableValidation();
 // const cardListEl = document.querySelector(".cards-container");
 //const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
 
@@ -99,19 +100,19 @@ function getCardElement(data) {
   return cardElement;
 }
 
-function renderCard(data, cardListEl) {
+/* function renderCard(data, cardListEl) {
   const cardElement = createCard(data);
   cardListEl.append(cardElement);
-}
+} */
 
-function createCard(data) {
+/* function createCard(data) {
   const cardElement = new Card(data, "#card-template", handleImageClick);
   return cardElement.getView();
-}
+} */
 
 function handleImageClick(name, link) {
-  const modalImage = previewImageCaption.querySelector("#modal-image");
-  const modalTitle = previewImageCaption.querySelector("#modal-image-caption");
+  const modalImage = previewImageModal.querySelector("#modal-preview-image");
+  const modalTitle = previewImageModal.querySelector("#modal-image-caption");
   modalImage.src = link;
   modalImage.alt = name;
   modalTitle.textContent = name;
@@ -169,12 +170,12 @@ function handleAddCardCreate(e) {
   addCardForm.reset();
 }
 
-function handlePreviewImage(data) {
+/* function handlePreviewImage(data) {
   previewImage.src = data.link;
   previewImage.alt = data.name;
   previewImageCaption.textContent = data.name;
   openModal(previewImageModal);
-}
+} */
 
 function clickCloseESC(e) {
   if (e.key === "Escape") {

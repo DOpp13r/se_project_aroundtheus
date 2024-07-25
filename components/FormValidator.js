@@ -59,9 +59,9 @@ export default class FormValidator {
   }
 
   _setEventListeners() {
-    this._inputEls = [
-      ...this._formElement.querySelectorAll(this._inputSelector),
-    ];
+    this._inputEls = Array.from(
+      this._formElement.querySelectorAll(this._inputSelector)
+    );
     this._submitButton = this._formElement.querySelector(
       this._submitButtonSelector
     );

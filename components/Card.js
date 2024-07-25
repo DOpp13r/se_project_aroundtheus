@@ -7,7 +7,7 @@ export default class Card {
   }
 
   _getTemplate() {
-    const cardElement = document
+    return document
       .querySelector(this._cardSelector)
       .content.querySelector(".cards__content")
       .cloneNode(true);
@@ -25,7 +25,7 @@ export default class Card {
     // set event listener
     this._setEventListeners();
     // return card
-    return this._cardElement;
+    return this._element;
   }
 
   _setEventListeners() {
@@ -55,7 +55,7 @@ export default class Card {
   }
 
   _handleDeleteIcon() {
-    this._cardElement.remove();
-    this._cardElement = null;
+    this._element.remove();
+    this._element = null;
   }
 }
