@@ -63,8 +63,6 @@ const addCardNameInput = addCardForm.querySelector("#add-card-title-input");
 const addCardUrlInput = addCardForm.querySelector("#add-card-url-input");
 
 const previewImageModal = document.querySelector("#preview-image-modal");
-// const previewImage = document.querySelector("#modal-preview-image");
-// const previewImageCaption = document.querySelector("#modal-image-caption");
 const previewCloseButton = previewImageModal.querySelector(
   "#modal-close-button"
 );
@@ -79,7 +77,6 @@ const addFormValidator = new FormValidator(config, addCardForm);
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 const cardListEl = document.querySelector(".cards__list");
-// const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
 
 /*    Functions   */
 function openModal(modal) {
@@ -92,12 +89,6 @@ function closeModal(modal) {
   document.removeEventListener("keydown", clickCloseESC);
   console.log("Modal closed", modal);
 }
-/* function cardElement(data) {
-  const card = new Card(data, "#card-template", handleImageClick);
-  const cardElement = card.getView();
-  return cardElement;
-}
-*/
 
 function createCard(data) {
   const cardElement = new Card(data, "#card-template", handleImageClick);
@@ -120,34 +111,6 @@ function handleImageClick(name, link) {
 }
 
 addCardButton.addEventListener("click", () => openModal(addCardModal));
-/* function getCardElement(data) {
-  // clone the template element with all its content and store it in a cardElement variable
-  const cardElement = cardTemplate.cloneNode(true);
-  // access the card title and image and store them in variables
-  const cardImageEl = cardElement.querySelector(".cards__image");
-  const cardNameEl = cardElement.querySelector(".cards__name");
-  // access Delete button for each card to listen for a click, and delete card
-  const deleteButton = cardElement.querySelector(".cards__delete-button");
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
-  // access Like button for each card to listen for a click, and set it to be active
-  const likeButton = cardElement.querySelector(".cards__like-button");
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("cards__like-button_active");
-  });
-  // access image preview to listen for a click to close the preview
-  cardImageEl.addEventListener("click", () => handlePreviewImage(data));
-  // set the path to the image to the link field of the object
-  cardImageEl.src = data.link;
-  // set the image alt text to the name field of the object
-  cardImageEl.alt = data.name;
-  // set the card title to the name field of the object, too
-  cardNameEl.textContent = data.name;
-  // return the ready HTML element with the filled-in data
-  return cardElement;
-}
-*/
 
 /*    Event Handlers    */
 function handleProfileEditSubmit(e) {
@@ -165,13 +128,6 @@ function handleAddCardCreate(e) {
   closeModal(addCardModal);
   addCardForm.reset();
 }
-
-/* function handlePreviewImage(data) {
-  previewImage.src = data.link;
-  previewImage.alt = data.name;
-  previewImageCaption.textContent = data.name;
-  openModal(previewImageModal);
-} */
 
 function clickCloseESC(e) {
   if (e.key === "Escape") {
@@ -217,5 +173,4 @@ initialCards.forEach((data) => {
   const card = new Card(data, "#card-template", handleImageClick);
   const cardElement = card.getView();
   cardContainer.append(cardElement);
-  //  renderCard(data, cardListEl);
 });
