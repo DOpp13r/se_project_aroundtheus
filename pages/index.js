@@ -67,7 +67,7 @@ const previewCloseButton = previewImageModal.querySelector(
   "#modal-close-button"
 );
 
-const forAllModals = document.querySelectorAll(".modal");
+const allModals = document.querySelectorAll(".modal");
 
 const cardContainer = document.querySelector(".cards__list");
 console.log(cardContainer);
@@ -165,7 +165,7 @@ previewCloseButton.addEventListener("click", () =>
   closeModal(previewImageModal)
 );
 
-forAllModals.forEach((modal) => {
+allModals.forEach((modal) => {
   modal.addEventListener("click", clickCloseOverlay);
 });
 
