@@ -95,9 +95,9 @@ function createCard(data) {
   return cardElement.getView();
 }
 
-function renderCard(data, cardsContainer) {
+function renderCard(data, cardListEl) {
   const cardElement = createCard(data);
-  cardsContainer.prepend(cardElement);
+  cardListEl.prepend(cardElement);
 }
 
 function handleImageClick(name, link) {
@@ -170,7 +170,5 @@ allModals.forEach((modal) => {
 });
 
 initialCards.forEach((data) => {
-  const card = new Card(data, "#card-template", handleImageClick);
-  const cardElement = card.getView();
-  cardContainer.append(cardElement);
+  renderCard(data, cardListEl);
 });
