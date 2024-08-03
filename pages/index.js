@@ -170,5 +170,6 @@ allModals.forEach((modal) => {
 });
 
 initialCards.forEach((data) => {
-  renderCard(data, cardListEl);
+  const cardElement = createCard(data);
+  cardContainer.append(cardElement);
 });
