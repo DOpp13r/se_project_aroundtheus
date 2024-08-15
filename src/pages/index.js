@@ -52,15 +52,6 @@ const section = new Section(
 
 section.renderItems();
 
-/*    Form validators    */
-const profileEditForm = document.forms["profile-edit-modal"];
-const addCardForm = document.forms["add-card-modal"];
-const editFormValidator = new FormValidator(config, profileEditForm);
-const addFormValidator = new FormValidator(config, addCardForm);
-
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
-
 /*    ModalWithForm Instances    */
 const profileEditModal = new ModalWithForm(
   "#profile-edit-modal",
@@ -69,6 +60,20 @@ const profileEditModal = new ModalWithForm(
 profileEditModal.setEventListeners();
 const addCardModal = new ModalWithForm("#add-card-modal", handleAddCardCreate);
 addCardModal.setEventListeners();
+
+/*    Form validators    */
+console.log(document.forms);
+const profileEditForm = document.forms["profile-edit-modal"];
+const addCardForm = document.forms["add-card-modal"];
+
+console.log(profileEditForm); // Should log the form element or undefined
+console.log(addCardForm);
+
+const editFormValidator = new FormValidator(config, profileEditForm);
+const addFormValidator = new FormValidator(config, addCardForm);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
 /*    ModalWithImage Instances    */
 const previewImageModal = new ModalWithImage("#preview-image-modal");
@@ -102,8 +107,8 @@ addCardButton.addEventListener("click", () => {
   addCardModal.open();
 });
 
-function handleImageClick({ name, link }) {
-  previewImageModal.open(name, link);
+function handleImageClick(name, link) {
+  previewImageModal.open({ name, link });
 }
 
 /*
