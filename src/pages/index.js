@@ -2,8 +2,8 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import "../pages/index.css";
 import Section from "../components/Section.js";
-import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithImage from "../components/PopupWithImage.js";
+import ModalWithForm from "../components/ModalWithForm.js";
+import ModalWithImage from "../components/ModalWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 
 import { initialCards, config } from "../utils/constants.js";
@@ -45,7 +45,7 @@ function renderCard(data) {
 const section = new Section(
   {
     items: initialCards,
-    renderer: renderer,
+    renderer: renderCard,
   },
   ".cards__list"
 );
@@ -53,24 +53,25 @@ const section = new Section(
 section.renderItems();
 
 /*    Form validators    */
-const profileEditForm = document.querySelector(".profile-edit-modal");
-const addCardForm = document.querySelector("#add-card-modal");
+const profileEditForm = document.forms["profile-edit-modal"];
+const addCardForm = document.forms["add-card-modal"];
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addCardForm);
-addFormValidator.enableValidation();
-editFormValidator.enableValidation();
 
-/*    PopupWithForm Instances    */
-const profileEditModal = new PopupWithForm(
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
+/*    ModalWithForm Instances    */
+const profileEditModal = new ModalWithForm(
   "#profile-edit-modal",
   handleProfileEditSubmit
 );
 profileEditModal.setEventListeners();
-const addCardModal = new PopupWithForm("#add-card-modal", handleAddCardCreate);
+const addCardModal = new ModalWithForm("#add-card-modal", handleAddCardCreate);
 addCardModal.setEventListeners();
 
-/*    PopupWithImage Instances    */
-const previewImageModal = new PopupWithImage("#preview-image-modal");
+/*    ModalWithImage Instances    */
+const previewImageModal = new ModalWithImage("#preview-image-modal");
 previewImageModal.setEventListeners();
 
 /*    Functions for opening/closing modals    */

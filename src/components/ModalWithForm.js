@@ -1,10 +1,10 @@
-import Popup from "./Popup";
+import Modal from "./Modal";
 
-export default class PopupWithForm extends Popup {
-  constructor(PopupSelector, handleFormSubmit) {
-    super({ PopupSelector });
-    this._popupForm = this._popupElement.querySelector(".modal__form");
-    this._inputList = this._popupForm.querySelectorAll(".modal__input");
+export default class ModalWithForm extends Modal {
+  constructor(ModalSelector, handleFormSubmit) {
+    super({ ModalSelector });
+    this._modalForm = this._modalElement.querySelector(".modal__form");
+    this._inputList = this._modalForm.querySelectorAll(".modal__input");
     this._handleFormSubmit = handleFormSubmit;
   }
 
@@ -18,7 +18,7 @@ export default class PopupWithForm extends Popup {
 
   setEventListners() {
     super.setEventListners();
-    this._popupForm.addEventListener("submit", (e) => {
+    this._modalForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this._handleFormSubmit(this._getInputValues());
       this.close();
