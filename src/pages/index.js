@@ -11,6 +11,10 @@ import { initialCards, config } from "../utils/constants.js";
 /*    Template    */
 const cardTemplate = "#card-template";
 
+function handleImageClick(name, link) {
+  previewImageModal.open(name, link);
+}
+
 /*   Form Elements   */
 const profileNameInput = document.querySelector("#profile-name-input");
 const profileDescriptionInput = document.querySelector(
@@ -63,12 +67,8 @@ addCardModal.setEventListeners();
 
 /*    Form validators    */
 console.log(document.forms);
-const profileEditForm = document.forms["profile-edit-modal"];
-const addCardForm = document.forms["add-card-modal"];
-
-console.log(profileEditForm); // Should log the form element or undefined
-console.log(addCardForm);
-
+const profileEditForm = document.forms["profile-edit-form"];
+const addCardForm = document.forms["add-card-form"];
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addCardForm);
 
@@ -106,10 +106,6 @@ profileEditButton.addEventListener("click", () => {
 addCardButton.addEventListener("click", () => {
   addCardModal.open();
 });
-
-function handleImageClick(name, link) {
-  previewImageModal.open({ name, link });
-}
 
 /*
 const addCardNameInput = addCardForm.querySelector("#add-card-title-input");
