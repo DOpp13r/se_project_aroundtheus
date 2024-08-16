@@ -27,8 +27,8 @@ const addCardButton = document.querySelector(".profile__add-button");
 
 /*    UserInfo instance    */
 const userInfo = new UserInfo({
-  nameSelector: "#profile-name",
-  descriptionSelector: "#profile-description",
+  nameSelector: ".profile__name",
+  jobSelector: ".profile__description",
 });
 
 /*    Function for creation of card    */
@@ -82,9 +82,9 @@ function handleProfileEditSubmit(data) {
 }
 
 function handleAddCardCreate(data) {
-  const name = data.title;
-  const link = data.url;
-  renderer({ name, link });
+  const title = data.title;
+  const link = data.link;
+  renderCard({ title, link });
   addCardModal.close();
   addCardForm.reset();
   addFormValidator.disableButton();
@@ -92,7 +92,6 @@ function handleAddCardCreate(data) {
 
 /*    Event Listeners    */
 profileEditButton.addEventListener("click", () => {
-  profileEditModal.open();
   const userData = userInfo.getUserInfo();
   profileNameInput.value = userData.name.trim();
   profileDescriptionInput.value = userData.job.trim();
@@ -101,6 +100,7 @@ profileEditButton.addEventListener("click", () => {
 });
 
 addCardButton.addEventListener("click", () => {
+  addFormValidator.resetValidation();
   addCardModal.open();
 });
 
