@@ -11,10 +11,6 @@ import { initialCards, config } from "../utils/constants.js";
 /*    Template    */
 const cardTemplate = "#card-template";
 
-function handleImageClick(name, link) {
-  previewImageModal.open(name, link);
-}
-
 /*   Form Elements   */
 const profileNameInput = document.querySelector("#profile-name-input");
 const profileDescriptionInput = document.querySelector(
@@ -96,6 +92,7 @@ function handleAddCardCreate(data) {
 
 /*    Event Listeners    */
 profileEditButton.addEventListener("click", () => {
+  profileEditModal.open();
   const userData = userInfo.getUserInfo();
   profileNameInput.value = userData.name.trim();
   profileDescriptionInput.value = userData.job.trim();
@@ -106,6 +103,10 @@ profileEditButton.addEventListener("click", () => {
 addCardButton.addEventListener("click", () => {
   addCardModal.open();
 });
+
+function handleImageClick(name, link) {
+  previewImageModal.open({ name, link });
+}
 
 /*
 const addCardNameInput = addCardForm.querySelector("#add-card-title-input");
