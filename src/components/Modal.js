@@ -20,7 +20,7 @@ export default class Modal {
     }
   }
 
-  setEventListners() {
+  setEventListeners() {
     this._modalElement.addEventListener("click", (e) => {
       if (
         e.target.classList.contains("modal_opened") ||
