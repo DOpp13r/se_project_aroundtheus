@@ -19,11 +19,7 @@ const profileDescriptionInput = document.querySelector(
 
 /*     Buttoms and other nodes     */
 const profileEditButton = document.querySelector("#profile-edit-button");
-/* const profileCloseButton = profileEditModal.querySelector(
-  "#modal-close-button"
-); */
 const addCardButton = document.querySelector("#add-card-button");
-// const addCardCloseButton = addCardModal.querySelector("#modal-close-button");
 
 /*    UserInfo instance    */
 const userInfo = new UserInfo({
@@ -110,50 +106,3 @@ addCardButton.addEventListener("click", () => {
 function handleImageClick(name, link) {
   previewImageModal.open({ name, link });
 }
-
-/*
-const addCardNameInput = addCardForm.querySelector("#add-card-title-input");
-const addCardUrlInput = addCardForm.querySelector("#add-card-url-input");
-
-// const previewImageModal = document.querySelector("#preview-image-modal");
-const previewCloseButton = previewImageModal.querySelector(
-  "#modal-close-button"
-);
-
-const allModals = document.querySelectorAll(".modal");
-
-const cardContainer = document.querySelector(".cards__list");
-console.log(cardContainer);
-
-const cardListEl = document.querySelector(".cards__list");
-
-/*    Event Listeners  
-profileEditButton.addEventListener("click", () => {
-  profileNameInput.value = profileName.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
-  openModal(profileEditModal);
-});
-profileCloseButton.addEventListener("click", () =>
-  closeModal(profileEditModal)
-);
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-
-addCardButton.addEventListener("click", () => {
-  openModal(addCardModal);
-});
-
-addCardCloseButton.addEventListener("click", () => closeModal(addCardModal));
-addCardForm.addEventListener("submit", handleAddCardCreate);
-previewCloseButton.addEventListener("click", () =>
-  closeModal(previewImageModal)
-);
-
-allModals.forEach((modal) => {
-  modal.addEventListener("click", clickCloseOverlay);
-});
-
-initialCards.forEach((data) => {
-  const cardElement = createCard(data);
-  cardContainer.append(cardElement);
-});
-*/
