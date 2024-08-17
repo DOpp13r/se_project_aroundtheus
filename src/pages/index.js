@@ -22,7 +22,7 @@ const profileEditButton = document.querySelector("#profile-edit-button");
 /* const profileCloseButton = profileEditModal.querySelector(
   "#modal-close-button"
 ); */
-const addCardButton = document.querySelector(".profile__add-button");
+const addCardButton = document.querySelector("#add-card-button");
 // const addCardCloseButton = addCardModal.querySelector("#modal-close-button");
 
 /*    UserInfo instance    */
@@ -77,13 +77,16 @@ previewImageModal.setEventListeners();
 
 /*    Functions for opening/closing modals    */
 function handleProfileEditSubmit(data) {
-  userInfo.setUserInfo({ name: data.name, job: data.description });
+  userInfo.setUserInfo({ name: data.name, description: data.description });
   profileEditModal.close();
 }
 
 function handleAddCardCreate(data) {
-  const title = data.title;
-  const link = data.link;
+  const title = data.title.trim();
+  const link = data.link.trim();
+
+  console.log(`Creating card with name: ${title} and link: ${link}`);
+
   renderCard({ title, link });
   addCardModal.close();
   addCardForm.reset();
