@@ -82,7 +82,7 @@ function handleProfileEditSubmit(data) {
 }
 
 function handleAddCardCreate(data) {
-  const name = data.name;
+  const name = data.title;
   const link = data.link;
 
   console.log(`Creating card with name: ${name} and link: ${link}`);
