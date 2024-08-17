@@ -82,12 +82,12 @@ function handleProfileEditSubmit(data) {
 }
 
 function handleAddCardCreate(data) {
-  const title = data.title.trim();
-  const link = data.link.trim();
+  const name = data.name;
+  const link = data.link;
 
-  console.log(`Creating card with name: ${title} and link: ${link}`);
+  console.log(`Creating card with name: ${name} and link: ${link}`);
 
-  renderCard({ title, link });
+  renderCard({ name, link });
   addCardModal.close();
   addCardForm.reset();
   addFormValidator.disableButton();
