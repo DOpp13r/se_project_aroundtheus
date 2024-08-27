@@ -1,9 +1,15 @@
 export default class Card {
-  constructor({ name, link }, cardSelector, handleImageClick) {
+  constructor(
+    { name, link },
+    cardSelector,
+    handleImageClick,
+    handleDeleteCard
+  ) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   _getTemplate() {
@@ -38,7 +44,7 @@ export default class Card {
     this._element
       .querySelector(".cards__delete-button")
       .addEventListener("click", () => {
-        this._handleDeleteIcon();
+        this._handleDeleteCard();
       });
 
     this._element
@@ -54,8 +60,11 @@ export default class Card {
       .classList.toggle("cards__like-button_active");
   }
 
-  _handleDeleteIcon() {
-    this._element.remove();
-    this._element = null;
+  _handleDeleteCard() {
+    if (typeof this._handleDeleteCard === "function") {
+      this._handleDeleteCard(this._element);
+    } else {
+      console.error("Method _handleDeleteCard is not a function");
+    }
   }
 }
