@@ -5,11 +5,49 @@ import Section from "../components/Section.js";
 import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 
 import { initialCards, config } from "../utils/constants.js";
 
 /*    Template    */
 const cardTemplate = "#card-template";
+
+/*    Api    */
+const api = new Api({
+  projectUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "f5b79730-6f48-4bb4-b0bf-8df04866d781",
+    "Content-Type": "application/json",
+  },
+});
+
+let section;
+api;
+
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+  .then(([cards, userData]) => {
+    section = new Section(
+      {
+        items: cards,
+        renderer: (userData) => {
+          const cardEl = renderCard(userData);
+          section.addItem(cardEl);
+        },
+      },
+      ".cards__list"
+    );
+    section.renderItems();
+
+    userInfo.setUserInfo({
+      title: userData.name,
+      description: userData.about,
+    });
+
+    userInfo.setAvatar({ avatar: userData.avatar });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 /*   Form Elements   */
 const profileNameInput = document.querySelector("#profile-name-input");
@@ -17,7 +55,7 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-/*     Buttoms and other nodes     */
+/*     Buttons and other nodes     */
 const profileEditButton = document.querySelector("#profile-edit-button");
 const addCardButton = document.querySelector("#add-card-button");
 
@@ -25,6 +63,7 @@ const addCardButton = document.querySelector("#add-card-button");
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
   jobSelector: ".profile__description",
+  avatarSelector: ".profile__image",
 });
 
 /*    Function for creation of card    */
@@ -37,16 +76,6 @@ function renderCard(data) {
   const cardElement = createCard(data);
   section.addItem(cardElement);
 }
-
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard,
-  },
-  ".cards__list"
-);
-
-section.renderItems();
 
 /*    ModalWithForm Instances    */
 const profileEditModal = new ModalWithForm(

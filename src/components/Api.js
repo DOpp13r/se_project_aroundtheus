@@ -1,105 +1,82 @@
-class Api {
+export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
 
-  _fetch(url, options = {}) {
-    return fetch(`${this._baseUrl}${url}`, {
-      ...options,
-      headers: {
-        ...this._headers,
-        ...options.headers,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.error("Fetch Error:", err);
-        throw err;
-      });
+  _renderResult(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
   }
 
-  getInitialCards() {
-    return this._fetch("/cards");
+  loadUserAndCards() {
+    return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
-  getUserInfo() {
-    return this._fetch("/users/me");
+  async getInitialCards() {
+    const res = await fetch(`${this._baseUrl}/cards`, {
+      method: "GET",
+      headers: this._headers,
+    });
+    return this._renderResult(res);
   }
 
-  updateUserProfile(name, about) {
-    return this._fetch("/users/me", {
+  async getUserInfo() {
+    const res = await fetch(`${this._baseUrl}/users/me`, {
+      method: "GET",
+      headers: this._headers,
+    });
+    return this._renderResult(res);
+  }
+
+  setUserInfo(data) {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      body: JSON.stringify({ name, about }),
+      headers: this._headers,
+      body: JSON.stringify(data),
     });
   }
 
-  updateUserAvatar(avatar) {
-    return this._fetch("/users/me/avatar", {
+  async updateUserAvatar({ url }) {
+    const res = await fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      body: JSON.stringify({ avatar }),
+      headers: this._headers,
+      body: JSON.stringify({ avatar: url }),
     });
+    return this._renderResult(res);
   }
 
-  addCard(name, link) {
-    return this._fetch("/cards", {
+  async addCard({ name, link }) {
+    const res = await fetch(`${this._baseUrl}/cards`, {
       method: "POST",
+      headers: this._headers,
       body: JSON.stringify({ name, link }),
     });
+    return this._renderResult(res);
   }
 
   deleteCard(cardId) {
-    return this._fetch(`/cards/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-    });
+      headers: this._headers,
+    }).then(this._renderResult);
   }
 
-  likeCard(cardId) {
-    return this._fetch(`/cards/${cardId}/likes`, {
+  async likeCard(cardId) {
+    const res = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
+      headers: this._headers,
     });
+    return this._renderResult(res);
   }
 
-  dislikeCard(cardId) {
-    return this._fetch(`/cards/${cardId}/likes`, {
+  async dislikeCard(cardId) {
+    const res = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
+      headers: this._headers,
     });
+    return this._renderResult(res);
   }
 }
-
-/*  loadUserAndCards() {
-    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
-  }
-}
-*/
-
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "f5b79730-6f48-4bb4-b0bf-8df04866d781",
-    "Content-Type": "application/json",
-  },
-});
-
-api
-  .getInitialCards()
-  .then((cards) => {
-    console.log(cards);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-
-api
-  .getUserInfo()
-  .then((userInfo) => {
-    console.log(userInfo);
-  })
-  .catch((err) => {
-    console.error(err);
-  });

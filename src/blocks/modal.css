@@ -128,6 +128,11 @@
   opacity: 0.2;
 }
 
+.modal__confirmation {
+  width: 430px;
+  height: 181px;
+}
+
 .modal__image {
   position: relative;
   display: flex;
