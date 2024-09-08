@@ -57,7 +57,7 @@ export default class Api {
     return this._renderResult(res);
   }
 
-  deleteCard(cardId) {
+  async deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,

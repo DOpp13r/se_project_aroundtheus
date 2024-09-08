@@ -23,11 +23,14 @@
 
       <main class="content page__section">
         <section class="profile">
-          <img
-            src="<%=require('./images/jacques-cousteau.png')%>"
-            alt="Jacques Cousteau"
-            class="profile__image"
-          />
+          <div class="profile__avatar">
+            <img
+              src="<%=require('./images/jacques-cousteau.png')%>"
+              alt="Jacques Cousteau"
+              class="profile__image"
+            />
+            <button class="profile__avatar_button" type="button"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__name">Jacques Cousteau</h1>
             <button
@@ -54,7 +57,34 @@
       </footer>
     </div>
 
-    <!--  Edit Modal -->
+    <!--  Avatar Modal  -->
+    <div class="modal" id="avatar-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          type="button"
+          id="avatar-edit-button"
+        ></button>
+        <form class="modal__form" id="avatar-edit-form">
+          <h1 class="modal__heading">Change profile picture</h1>
+          <input
+            class="modal__input"
+            id="modal-avatar-input"
+            name="link"
+            type="url"
+            placeholder="Avatar Image Url"
+            required
+          />
+          <span
+            class="modal__error modal__error-url"
+            id="avatar-url-input-error"
+          ></span>
+          <button class="modal__button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!--  Edit Modal  -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button
@@ -66,7 +96,7 @@
         <form class="modal__form" id="profile-edit-form">
           <label for="modal-name-input" class="modal__label">
             <input
-              class="modal__input"
+              class="modal__input modal__input_title"
               id="profile-name-input"
               name="name"
               type="text"
@@ -128,7 +158,7 @@
 
           <label for="modal-url-input" class="modal__label">
             <input
-              class="modal__input"
+              class="modal__input modal__input_url"
               id="add-card-url-input"
               name="link"
               type="url"
@@ -151,15 +181,16 @@
       </div>
     </div>
 
-    <!--  Confirmation Modal   -->
-    <div class="modal modal__confirm" id="modal-confirm-delete">
+    <!--  Delete Modal   -->
+    <div class="modal" id="modal-delete">
       <div class="modal__container">
-        <h3 class="modal__heading">Are you sure?</h3>
-        <button
-          class="modal__button"
-          id="modal-confirm-yes-delete"
-          type="button"
-        ></button>
+        <button class="modal__close" id="modal-close-button"></button>
+        <form class="modal__form" id="modal-delete-form">
+          <h3 class="modal__heading">Are you sure?</h3>
+          <button class="modal__button" id="modal-button-delete" type="submit">
+            Yes
+          </button>
+        </form>
       </div>
     </div>
 

@@ -3,13 +3,18 @@ export default class Card {
     { name, link },
     cardSelector,
     handleImageClick,
-    handleDeleteCard
+    handleDeleteCard,
+    handleLike
   ) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteCard = handleDeleteCard;
+    this._handleLike = handleLike;
+    this._element = null;
+    this.isLiked = data.isLiked || false;
+    this.id = data._id;
   }
 
   _getTemplate() {
@@ -35,8 +40,32 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element
-      .querySelector(".cards__like-button")
+    if (!this._element) {
+      console.error("Card element is not initialized");
+      return;
+    }
+
+    const likeButton = this._element.querySelector(".cards__like-button");
+    const deleteButton = this._element.querySelector(".card__like-button");
+    const cardsImage = this._element.querySelector(".cards__image");
+
+    if (likeButton) {
+      likeButton.addEventListener("click", () => {
+        this._handleLike(this);
+      });
+    }
+    if (deleteButton) {
+      deleteButton.addEventListener("click", () => {
+        this._handleDeleteCard(this);
+      });
+    }
+    if (cardsImage) {
+      cardsImage.addEventListener("click", () => {
+        this._handleImageClick(this._data);
+      });
+    }
+  }
+  /*      .querySelector(".cards__like-button")
       .addEventListener("click", () => {
         this._handleLikeIcon();
       });
@@ -52,7 +81,7 @@ export default class Card {
       .addEventListener("click", () => {
         this._handleImageClick(this._name, this._link);
       });
-  }
+*/
 
   _handleLikeIcon() {
     this._element
@@ -60,11 +89,13 @@ export default class Card {
       .classList.toggle("cards__like-button_active");
   }
 
-  _handleDeleteCard() {
-    if (typeof this._handleDeleteCard === "function") {
-      this._handleDeleteCard(this._element);
-    } else {
-      console.error("Method _handleDeleteCard is not a function");
-    }
+  handleLike(isLiked) {
+    this.isLiked = isLiked;
+    this._handleLike();
+  }
+
+  handleDeleteButton() {
+    this._element.remove();
+    this._element = null;
   }
 }

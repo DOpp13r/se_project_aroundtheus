@@ -6,8 +6,28 @@ import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
+import ModalWithConfirmation from "../components/ModalWithConfirmation.js";
 
-import { initialCards, config } from "../utils/constants.js";
+import {
+  initialCards,
+  config,
+  profileEditModal,
+  profileEditButton,
+  profileName,
+  profileDescription,
+  profileDescriptionInput,
+  addCardModal,
+  profileAddButton,
+  addCardForm,
+  previewImage,
+  previewCaption,
+  profileAvatarButton,
+  profileAvatarModal,
+  profileAvatarForm,
+  cardsDeleteButton,
+  cardsDeleteModal,
+  cardDeleteForm,
+} from "../utils/constants.js";
 
 /*    Template    */
 const cardTemplate = "#card-template";
@@ -49,15 +69,18 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
     console.log(err);
   });
 
-/*   Form Elements   */
-const profileNameInput = document.querySelector("#profile-name-input");
-const profileDescriptionInput = document.querySelector(
-  "#profile-description-input"
-);
-
+if (profileAddButton) {
+  profileAddButton.addEventListener("click", () => {
+    profileAvatarModal.open();
+  });
+} else {
+  console.error("profileAddButton is not defined");
+}
 /*     Buttons and other nodes     */
+/*
 const profileEditButton = document.querySelector("#profile-edit-button");
 const addCardButton = document.querySelector("#add-card-button");
+*/
 
 /*    UserInfo instance    */
 const userInfo = new UserInfo({
@@ -68,13 +91,25 @@ const userInfo = new UserInfo({
 
 /*    Function for creation of card    */
 function createCard(data) {
-  const card = new Card(data, cardTemplate, handleImageClick);
-  return card.getView();
+  const cardElement = new Card(
+    data,
+    cardTemplate,
+    handleImageClick,
+    handleDeleteCard,
+    handleLike
+  );
+  return cardElement.getView();
 }
 
 function renderCard(data) {
-  const cardElement = createCard(data);
-  section.addItem(cardElement);
+  const addCard = new Card(
+    data,
+    cardTemplate,
+    handleImageClick,
+    handleDeleteCard,
+    handleLike
+  );
+  return addCard.getView();
 }
 
 /*    ModalWithForm Instances    */
@@ -90,11 +125,24 @@ addCardModal.setEventListeners();
 console.log(document.forms);
 const profileEditForm = document.forms["profile-edit-form"];
 const addCardForm = document.forms["add-card-form"];
+const profileAvatarForm = document.forms["avatar-edit-form"];
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addCardForm);
+const avatarFormValidator = new FormValidator(config, profileAvatarForm);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
+
+const profileAvatarModal = new ModalWithForm(
+  "#avator-modal",
+  handleAvatarSubmit,
+  config
+);
+
+profileAvatarButton.addEventListener("click", () => {
+  profileAvatarModal.open();
+});
 
 /*    ModalWithImage Instances    */
 const previewImageModal = new ModalWithImage("#preview-image-modal");
@@ -102,26 +150,138 @@ previewImageModal.setEventListeners();
 
 /*    Functions for opening/closing modals    */
 function handleProfileEditSubmit(data) {
-  userInfo.setUserInfo({ name: data.name, description: data.description });
+  profileEditModal.setModalLoad(true);
+  api
+    .setUserInfo({ name: data.name, description: data.description })
+    .then(() => {
+      userInfo.setUserInfo(data);
+      profileEditModal.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      profileEditModal.setModalLoad(false);
+    });
   profileEditModal.close();
 }
 
-function handleAddCardCreate(data) {
-  const name = data.title;
-  const link = data.link;
+function handleEditButtonClick() {
+  profileEditModal.classList.add(".modal__opened");
+}
 
-  console.log(`Creating card with name: ${name} and link: ${link}`);
+if (profileEditButton) {
+  profileEditButton.addEventListener("click", handleEditButtonClick);
+}
 
-  renderCard({ name, link });
-  addCardModal.close();
-  addCardForm.reset();
+const previewModal = new ModalWithImage("#modal-preview");
+previewModal.setEventListeners();
+
+function handleAddCardCreate(inputValues) {
+  //  const name = data.title;
+  //  const link = data.link;
+  addCardModal.setModalLoad(true);
+  api
+    .createCard(inputValues)
+    .then((data) => {
+      const cardEl = renderCard(data);
+      section.addItem(cardEl);
+      addCardModal.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      addCardModal.setModalLoad(false);
+    });
   addFormValidator.disableButton();
 }
 
+function handleAvatarSubmit(url) {
+  profileAvatarModal.setModalLoad(true);
+  api
+    .updateUserAvatar(url)
+    .then((data) => {
+      userInfo.setAvatar(data);
+      profileAvatarModal.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      profileAvatarModal.setModalLoad(false);
+    });
+}
+
+function handleDeleteCard(addCard) {
+  cardsDeleteModal.open();
+  cardsDeleteModal.setSubmitAction(() => {
+    api
+      .deleteCard(addCard._data._id)
+      .then(() => {
+        addCard.handleDeleteButton();
+        cardsDeleteModal.close();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        cardsDeleteModal.setModalLoad(false, "Yes");
+      });
+  });
+}
+
+function handleLike(addCard) {
+  if (addCard.isLiked) {
+    api
+      .dislikeCard(addCard.id)
+      .then((data) => {
+        addCard.handleLike(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  } else {
+    api
+      .likeCard(addCard.id)
+      .then((data) => {
+        addCard.handleLike(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+}
+
+const cardsDeleteModal = new ModalWithConfirmation({
+  modalSelector: "#modal-delete",
+});
+
+cardsDeleteModal.setEventListeners();
+
+const cardsConfirmDeleteModal = new ModalWithConfirmation({
+  modalSelector: "#modal-delete",
+});
+cardsConfirmDeleteModal.setSubmitAction(() => {
+  cardsConfirmDeleteModal.setModalLoad(true);
+  api
+    .deleteCard(Card)
+    .then(() => {
+      cardElement.handleDeleteCard();
+      cardsConfirmDeleteModal.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      cardsConfirmDeleteModal.setModalLoad(false, "Yes");
+    });
+});
+
 /*    Event Listeners    */
-profileEditButton.addEventListener("click", () => {
+profileAddButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
-  profileNameInput.value = userData.name.trim();
+  profileName.value = userData.name.trim();
   profileDescriptionInput.value = userData.job.trim();
   editFormValidator.resetValidation();
   profileEditModal.open();

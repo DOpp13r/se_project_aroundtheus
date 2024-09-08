@@ -28,6 +28,7 @@
   width: 430px;
   height: 330px;
 }
+
 .modal__close {
   background: url(../images/close-icon.svg) center no-repeat;
   border: none;
@@ -126,11 +127,6 @@
 
 .modal__button_disabled:hover {
   opacity: 0.2;
-}
-
-.modal__confirmation {
-  width: 430px;
-  height: 181px;
 }
 
 .modal__image {

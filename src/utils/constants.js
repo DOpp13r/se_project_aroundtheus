@@ -37,3 +37,36 @@ export const config = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible",
 };
+
+export const profileEditModal = document.querySelector("#profile-edit-modal");
+export const profileEditButton = document.querySelector("#profile-edit-button");
+export const profileEditForm = document.querySelector("#profile-edit-form");
+export const profileName = document.querySelector(".profile__name");
+export const profileDescription = document.querySelector(
+  ".profile__description"
+);
+export const profileNameInput = document.querySelector("#profile-name-input");
+export const profileDescriptionInput = document.querySelector(
+  "#profile-description-input"
+);
+
+export const addCardModal = document.querySelector("#add-card-modal");
+export const profileAddbutton = document.querySelector(".profile__add-button");
+export const addCardForm = document.querySelector("#add-card-form");
+export const addCardSubmit = addCardModal.querySelector(".modal__button");
+
+export const previewImage = document.querySelector(".modal__preview-image");
+export const previewCaption = document.querySelector(".modal__image-caption");
+
+export const profileAvatarButton = document.querySelector(
+  ".profile__avatar_button"
+);
+export const profileAvatarModal = document.querySelector("#avatar-modal");
+export const profileAvatarForm =
+  profileAvatarModal.querySelector(".modal__form");
+
+export const cardsDeleteButton = document.querySelector(
+  ".cards__delete-button"
+);
+export const cardsDeleteModal = document.querySelector("#modal-delete");
+export const cardDeleteForm = cardsDeleteModal.querySelector(".modal__form");
