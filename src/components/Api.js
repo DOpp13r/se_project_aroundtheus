@@ -48,7 +48,7 @@ export default class Api {
     return this._renderResult(res);
   }
 
-  async addCard({ name, link }) {
+  async createCard({ name, link }) {
     const res = await fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,

@@ -89,7 +89,7 @@ export default class Card {
       .classList.toggle("cards__like-button_active");
   }
 
-  handleLike(isLiked) {
+  isLiked(isLiked) {
     this.isLiked = isLiked;
     this._handleLike();
   }

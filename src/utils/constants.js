@@ -49,9 +49,10 @@ export const profileNameInput = document.querySelector("#profile-name-input");
 export const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
+export const profileAddButton = document.querySelector(".profile__add-button");
 
 export const addCardModal = document.querySelector("#add-card-modal");
-export const profileAddbutton = document.querySelector(".profile__add-button");
+export const addCardButton = document.querySelector("#add-card-button");
 export const addCardForm = document.querySelector("#add-card-form");
 export const addCardSubmit = addCardModal.querySelector(".modal__button");
 
@@ -69,4 +70,4 @@ export const cardsDeleteButton = document.querySelector(
   ".cards__delete-button"
 );
 export const cardsDeleteModal = document.querySelector("#modal-delete");
-export const cardDeleteForm = cardsDeleteModal.querySelector(".modal__form");
+export const cardsDeleteForm = cardsDeleteModal.querySelector(".modal__form");
