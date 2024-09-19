@@ -29,6 +29,10 @@
   height: 330px;
 }
 
+.modal__container-avatar {
+  height: 272px;
+}
+
 .modal__close {
   background: url(../images/close-icon.svg) center no-repeat;
   border: none;

@@ -36,7 +36,7 @@ const cardTemplate = "#card-template";
 
 /*    Api    */
 const api = new Api({
-  projectUrl: "https://around-api.en.tripleten-services.com/v1",
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
     authorization: "f5b79730-6f48-4bb4-b0bf-8df04866d781",
     "Content-Type": "application/json",
@@ -143,7 +143,7 @@ addCardFormValidator.enableValidation();
 avatarFormValidator.enableValidation();
 
 const profileAvatarPopup = new ModalWithForm(
-  "#avator-modal",
+  "#avatar-modal",
   handleAvatarSubmit,
   config
 );
@@ -181,9 +181,6 @@ function handleEditButtonClick() {
 if (profileEditButton) {
   profileEditButton.addEventListener("click", handleEditButtonClick);
 }
-
-const previewModal = new ModalWithImage("#modal-preview");
-previewModal.setEventListeners();
 
 function handleAddCardCreate(inputValues) {
   //  const name = data.title;

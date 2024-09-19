@@ -77,24 +77,25 @@
 
 .profile__avatar {
   position: relative;
+  cursor: pointer;
 }
 
-.profile__avatar_button {
+.profile__avatar_button-icon {
   background: transparent url(../images/pencil-icon.svg) center no-repeat;
   position: absolute;
-  border: none;
+  height: 26px;
+  width: 26px;
   top: 50px;
   left: 48px;
-  width: 26px;
-  height: 26px;
   cursor: pointer;
-  opacity: 0;
   background-size: cover;
-  transition: 0.3s ease-in-out;
+  padding: 0;
+  border: none;
 }
 
-.profile__avatar_button:hover {
-  opacity: 0.6s;
+.profile__avatar:hover {
+  opacity: 0.8;
+  transition: url(../images/pencil-icon.svg) 0.3s ease-in-out;
 }
 
 @media screen and (max-width: 563px) {
