@@ -1,82 +1,160 @@
 export default class Api {
-  constructor({ baseUrl, headers }) {
-    this._baseUrl = baseUrl;
-    this._headers = headers;
+  constructor(options) {
+    this.baseUrl = options.baseUrl;
+    this.headers = options.headers;
   }
 
-  _renderResult(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Error: ${res.status}`);
+  // Method to get initial cards
+  getInitialCards() {
+    return fetch(`${this.baseUrl}/cards`, {
+      headers: this.headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch initial cards:", err);
+      });
   }
 
-  loadUserAndCards() {
-    return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+  // Method to get user info
+  getUserInfo() {
+    return fetch(`${this.baseUrl}/users/me`, {
+      headers: this.headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch user info:", err);
+      });
   }
 
-  async getInitialCards() {
-    const res = await fetch(`${this._baseUrl}/cards`, {
-      method: "GET",
-      headers: this._headers,
-    });
-    return this._renderResult(res);
-  }
-
-  async getUserInfo() {
-    const res = await fetch(`${this._baseUrl}/users/me`, {
-      method: "GET",
-      headers: this._headers,
-    });
-    return this._renderResult(res);
-  }
-
-  setUserInfo(data) {
-    return fetch(`${this._baseUrl}/users/me`, {
+  // Method to update user profile
+  updateUserInfo(name, about) {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify(data),
-    });
+      headers: {
+        ...this.headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        about,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error("Failed to update user info:", err);
+      });
   }
 
-  async updateUserAvatar({ url }) {
-    const res = await fetch(`${this._baseUrl}/users/me/avatar`, {
+  // Method to update user avatar
+  updateUserAvatar(avatarUrl) {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({ avatar: url }),
-    });
-    return this._renderResult(res);
+      headers: {
+        ...this.headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar: avatarUrl,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error("Failed to update avatar:", err);
+      });
   }
 
-  async createCard({ name, link }) {
-    const res = await fetch(`${this._baseUrl}/cards`, {
+  // Method to add a new card
+  addCard(name, link) {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
-      headers: this._headers,
-      body: JSON.stringify({ name, link }),
-    });
-    return this._renderResult(res);
+      headers: {
+        ...this.headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        link,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error("Failed to add card:", err);
+      });
   }
 
-  async deleteCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+  // Method to delete a card
+  deleteCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers,
-    }).then(this._renderResult);
+      headers: this.headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error("Failed to delete card:", err);
+      });
   }
 
-  async likeCard(cardId) {
-    const res = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+  // Method to like a card
+  likeCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
-      headers: this._headers,
-    });
-    return this._renderResult(res);
+      headers: this.headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error("Failed to like card:", err);
+      });
   }
 
-  async dislikeCard(cardId) {
-    const res = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+  // Method to dislike a card
+  dislikeCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
-      headers: this._headers,
-    });
-    return this._renderResult(res);
+      headers: this.headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error("Failed to dislike card:", err);
+      });
   }
 }

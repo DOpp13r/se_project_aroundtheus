@@ -23,13 +23,17 @@
 
       <main class="content page__section">
         <section class="profile">
-          <div class="profile__avatar">
-            <button class="profile__avatar_button-icon" type="button"></button>
+          <div class="profile__avatar-container">
             <img
               src="<%=require('./images/jacques-cousteau.png')%>"
               alt="Jacques Cousteau"
-              class="profile__image profile__avatar_button"
+              class="profile__avatar"
             />
+            <button
+              class="profile__avatar-edit-button"
+              id="profile-avatar-edit-button"
+              type="button"
+            ></button>
           </div>
           <div class="profile__info">
             <h1 class="profile__name">Jacques Cousteau</h1>
@@ -57,39 +61,7 @@
       </footer>
     </div>
 
-    <!--  Avatar Modal  -->
-    <div class="modal" id="avatar-modal">
-      <div class="modal__container modal__container-avatar">
-        <button
-          class="modal__close"
-          id="modal-close-button"
-          type="button"
-        ></button>
-        <h2 class="modal__heading">Change profile picture</h2>
-        <form class="modal__form" id="avatar-edit-form">
-          <label for="modal-url-input" class="modal__label">
-            <input
-              class="modal__input modal__input_url"
-              id="add-avatar-url-input"
-              name="link"
-              type="url"
-              placeholder="Image URL"
-              required
-            />
-            <span class="modal__error" id="add-avatar-url-input-error"></span>
-          </label>
-          <button
-            class="modal__button modal__button_disabled"
-            type="submit"
-            disabled
-          >
-            Save
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <!--  Edit Modal  -->
+    <!--  Edit Modal -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button
@@ -101,7 +73,7 @@
         <form class="modal__form" id="profile-edit-form">
           <label for="modal-name-input" class="modal__label">
             <input
-              class="modal__input modal__input_title"
+              class="modal__input"
               id="profile-name-input"
               name="name"
               type="text"
@@ -163,7 +135,7 @@
 
           <label for="modal-url-input" class="modal__label">
             <input
-              class="modal__input modal__input_url"
+              class="modal__input"
               id="add-card-url-input"
               name="link"
               type="url"
@@ -181,19 +153,6 @@
             disabled
           >
             Create
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <!--  Delete Modal   -->
-    <div class="modal" id="modal-delete">
-      <div class="modal__container">
-        <button class="modal__close" id="modal-close-button"></button>
-        <form class="modal__form" id="modal-delete-form">
-          <h3 class="modal__heading">Are you sure?</h3>
-          <button class="modal__button" id="modal-button-delete" type="submit">
-            Yes
           </button>
         </form>
       </div>
@@ -219,13 +178,50 @@
       </div>
     </div>
 
-    <template id="card-template">
-      <li class="cards__content">
+    <!--  Edit Profile Picture Modal -->
+    <div class="modal" id="profile-avatar-edit-modal">
+      <div class="modal__container modal__container-avatar">
         <button
-          class="cards__delete-button"
-          id="cards-delete-button"
+          class="modal__close"
+          id="modal-close-button"
           type="button"
         ></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" id="profile-avatar-edit-form">
+          <label for="profile-avatar-input" class="modal__label">
+            <input
+              class="modal__input"
+              id="profile-avatar-input"
+              name="avatar"
+              type="url"
+              placeholder="Enter the image URL"
+              required
+            />
+            <span class="modal__error" id="profile-avatar-input-error"></span>
+          </label>
+          <button class="modal__button" type="submit" disabled>Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!--  Delete Modal  -->
+    <div class="modal" id="delete-confirmation-modal">
+      <div class="modal__container modal__container-delete">
+        <button
+          class="modal__close"
+          id="modal-close-button"
+          type="button"
+        ></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <button class="modal__button modal__button-delete" type="button">
+          Yes
+        </button>
+      </div>
+    </div>
+
+    <template id="card-template">
+      <li class="cards__content">
+        <button class="cards__delete-button" type="button"></button>
         <img src="" alt="" class="cards__image" />
         <div class="cards__description">
           <h2 class="cards__name"></h2>

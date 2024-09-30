@@ -1,21 +1,14 @@
+import ModalWithConfirmation from "./modalwithconfirmation";
+
 export default class Card {
-  constructor(
-    //    { name, link },
-    data,
-    cardSelector,
-    handleImageClick,
-    handleDeleteCard,
-    handleLike
-  ) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor({ name, link, id }, cardSelector, handleImageClick, api, deleteConfirmationModal) {
+    this._name = name;
+    this._link = link;
+    this._id = id; 
+
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
-    this._handleDeleteCard = handleDeleteCard;
-    this._handleLike = handleLike;
-    this._element = null;
-    this.isLiked = data.isLiked || false;
-    this.id = data._id;
+    this.api = api; 
   }
 
   _getTemplate() {
@@ -34,39 +27,14 @@ export default class Card {
 
     const cardTitle = this._element.querySelector(".cards__name");
     cardTitle.textContent = this._name;
-    // set event listener
+   
     this._setEventListeners();
-    // return card
     return this._element;
   }
 
   _setEventListeners() {
-    if (!this._element) {
-      console.error("Card element is not initialized");
-      return;
-    }
-
-    const likeButton = this._element.querySelector(".cards__like-button");
-    const deleteButton = this._element.querySelector(".card__like-button");
-    const cardsImage = this._element.querySelector(".cards__image");
-
-    if (likeButton) {
-      likeButton.addEventListener("click", () => {
-        this._handleLike(this);
-      });
-    }
-    if (deleteButton) {
-      deleteButton.addEventListener("click", () => {
-        this._handleDeleteCard(this);
-      });
-    }
-    if (cardsImage) {
-      cardsImage.addEventListener("click", () => {
-        this._handleImageClick(this._data);
-      });
-    }
-  }
-  /*      .querySelector(".cards__like-button")
+    this._element
+      .querySelector(".cards__like-button")
       .addEventListener("click", () => {
         this._handleLikeIcon();
       });
@@ -74,7 +42,7 @@ export default class Card {
     this._element
       .querySelector(".cards__delete-button")
       .addEventListener("click", () => {
-        this._handleDeleteCard();
+        this._handleDeleteIcon();
       });
 
     this._element
@@ -82,21 +50,46 @@ export default class Card {
       .addEventListener("click", () => {
         this._handleImageClick(this._name, this._link);
       });
-*/
+  }
 
   _handleLikeIcon() {
-    this._element
-      .querySelector(".cards__like-button")
-      .classList.toggle("cards__like-button_active");
+    if (this._element.querySelector(".cards__like-button").classList.contains("cards__like-button_active")) {
+      this.api.dislikeCard(this._id)
+        .then((data) => {
+          this._element.querySelector(".cards__like-button").classList.remove("cards__like-button_active");
+        })
+        .catch((err) => {
+          console.error("Error disliking card:", err);
+        });
+    } else {
+      this.api.likeCard(this._id)
+        .then((data) => {
+          this._element.querySelector(".cards__like-button").classList.add("cards__like-button_active");
+        })
+        .catch((err) => {
+          console.error("Error liking card:", err);
+        });
+    }
   }
 
-  isLiked(isLiked) {
-    this.isLiked = isLiked;
-    this._handleLike();
+  _handleDeleteIcon() {
+    const deleteConfirmationModal = new ModalWithConfirmation({
+      modalSelector: '#delete-confirmation-modal',
+      handleConfirm: () => {
+        this._deleteCard();
+      }
+    });
+    deleteConfirmationModal.open();
+  }
+  
+  _deleteCard() {
+    this.api.deleteCard(this._id)
+      .then(() => {
+        this._element.remove();
+      })
+      .catch((error) => {
+        console.error("Error deleting card:", error);
+      });
   }
 
-  handleDeleteButton() {
-    this._element.remove();
-    this._element = null;
-  }
 }
