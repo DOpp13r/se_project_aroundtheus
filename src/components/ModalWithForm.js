@@ -29,25 +29,34 @@ export default class ModalWithForm extends Modal {
   }
 
   setEventListeners() {
-    this._modalForm.addEventListener("submit", (e) => {
-      const modalData = this._getInputValues();
-      e.preventDefault();
-      this.setModalLoad(true);
-      this._handleFormSubmit(modalData)
-        .then(() => {
-          console.log(`Success:`, modalData);
-          this.close();
-          this._modalForm.reset();
-        })
-        .catch((err) => {
-          console.error(`Error:`, err);
-        })
-        .finally(() => {
-          this.setModalLoad(false);
-        });
-    });
     super.setEventListeners();
+    this._modalForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
+      this.close();
+    });
   }
+
+  // setEventListeners() {
+  //   this._modalForm.addEventListener("submit", (e) => {
+  //     const modalData = this._getInputValues();
+  //     e.preventDefault();
+  //     this.setModalLoad(true);
+  //     this._handleFormSubmit(modalData)
+  //       .then(() => {
+  //         console.log(`Success:`, modalData);
+  //         this.close();
+  //         this._modalForm.reset();
+  //       })
+  //       .catch((err) => {
+  //         console.error(`Error:`, err);
+  //       })
+  //       .finally(() => {
+  //         this.setModalLoad(false);
+  //       });
+  //   });
+  //   super.setEventListeners();
+  // }
 
   close() {
     this._modalForm.reset();

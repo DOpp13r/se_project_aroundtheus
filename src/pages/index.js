@@ -84,6 +84,22 @@ profileAvatarEditButton.addEventListener("click", () => {
   profileAvatarInput.value = "";
 });
 
+/*    Form validators    */
+const profileEditForm = document.forms["profile-edit-form"];
+const addCardForm = document.forms["add-card-form"];
+const profileAvatarForm = document.forms["profile-avatar-edit-form"];
+const editFormValidator = new FormValidator(config, profileEditForm);
+const addFormValidator = new FormValidator(config, addCardForm);
+const avatarFormValidator = new FormValidator(config, profileAvatarForm);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
+
+/*    ModalWithImage Instances    */
+const previewImageModal = new ModalWithImage("#preview-image-modal");
+previewImageModal.setEventListeners();
+
 // Handle profile avatar update function
 function handleProfileAvatarUpdate(data) {
   api
@@ -112,22 +128,6 @@ function handleProfileAvatarUpdate(data) {
       profileAvatarEditModal.setModalLoad(false);
     });
 }
-
-/*    Form validators    */
-const profileEditForm = document.forms["profile-edit-form"];
-const addCardForm = document.forms["add-card-form"];
-const profileAvatarForm = document.forms["profile-avatar-edit-form"];
-const editFormValidator = new FormValidator(config, profileEditForm);
-const addFormValidator = new FormValidator(config, addCardForm);
-const avatarFormValidator = new FormValidator(config, profileAvatarForm);
-
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
-avatarFormValidator.enableValidation();
-
-/*    ModalWithImage Instances    */
-const previewImageModal = new ModalWithImage("#preview-image-modal");
-previewImageModal.setEventListeners();
 
 /*    Functions for opening/closing modals    */
 function handleProfileEditSubmit(data) {
@@ -158,8 +158,8 @@ function handleAddCardCreate(data) {
 
   api
     .addCard(name, link)
-    .then((newCardData) => {
-      renderCard(newCardData);
+    .then((cardData) => {
+      renderCard(cardData);
       addCardModal.close();
       addCardForm.reset();
       addFormValidator.disableButton();
