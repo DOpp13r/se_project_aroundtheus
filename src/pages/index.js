@@ -98,7 +98,6 @@ function handleProfileAvatarUpdate(data) {
         avatar: userData.avatar,
       });
 
-      // Close the modal
       profileAvatarEditModal.close();
     })
     .catch((err) => {
@@ -151,12 +150,9 @@ function handleAddCardCreate(data) {
   const name = data.title;
   const link = data.link;
 
-  console.log(`Creating card with name: ${name} and link: ${link}`);
-
   api
     .addCard(name, link)
     .then((newCardData) => {
-      // Render the new card in the UI
       renderCard(newCardData);
       addCardModal.close();
       addCardForm.reset();

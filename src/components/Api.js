@@ -1,7 +1,7 @@
 export default class Api {
-  constructor(options) {
-    this.baseUrl = options.baseUrl;
-    this.headers = options.headers;
+  constructor(data) {
+    this.baseUrl = data.baseUrl;
+    this.headers = data.headers;
   }
 
   // Method to get initial cards
