@@ -107,6 +107,9 @@ function handleProfileAvatarUpdate(data) {
         "#profile-avatar-input-error"
       );
       errorMessage.textContent = "Failed to update avatar. Please try again.";
+    })
+    .finally(() => {
+      profileAvatarEditModal.setModalLoad(false);
     });
 }
 
@@ -143,6 +146,9 @@ function handleProfileEditSubmit(data) {
     })
     .catch((err) => {
       console.error("Error updating user info:", err);
+    })
+    .finally(() => {
+      profileEditModal.setModalLoad(false);
     });
 }
 
@@ -160,6 +166,9 @@ function handleAddCardCreate(data) {
     })
     .catch((err) => {
       console.error("Error adding card:", err);
+    })
+    .finally(() => {
+      addCardModal.setModalLoad(false);
     });
 }
 
