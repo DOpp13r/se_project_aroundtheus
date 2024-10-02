@@ -18,7 +18,7 @@ export default class ModalWithConfirmation extends Modal {
     if (this._modalButton) {
       this._modalButton.addEventListener("click", (e) => {
         e.preventDefault();
-        this._handleConfirm();
+        this.handleConfirm();
         this.close();
       });
     }

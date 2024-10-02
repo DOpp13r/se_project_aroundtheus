@@ -4,6 +4,7 @@ import "../pages/index.css";
 import Section from "../components/Section.js";
 import ModalWithForm from "../components/ModalWithForm.js";
 import ModalWithImage from "../components/ModalWithImage.js";
+import ModalWithConfirmation from "../components/modalwithconfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import { initialCards, config } from "../utils/constants.js";
@@ -40,7 +41,13 @@ const api = new Api({
 
 /*    Function for creation of card    */
 function createCard(data) {
-  const card = new Card(data, cardTemplate, handleImageClick, api);
+  const card = new Card(
+    data,
+    cardTemplate,
+    handleImageClick,
+    handleDeleteCard,
+    api
+  );
   return card.getView();
 }
 
@@ -170,6 +177,22 @@ function handleAddCardCreate(data) {
     .finally(() => {
       addCardModal.setModalLoad(false);
     });
+}
+
+const deleteConfirmationModal = new ModalWithConfirmation({
+  modalSelector: "#delete-confirmation-modal",
+  handleConfirm: () => {
+    this._deleteCard();
+    {
+      this.api.deleteCard(this._id).then(() => {
+        this._element.remove();
+      });
+    }
+  },
+});
+
+function handleDeleteCard() {
+  deleteConfirmationModal.open();
 }
 
 /*    Event Listeners    */
