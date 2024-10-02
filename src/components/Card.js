@@ -1,14 +1,14 @@
 import ModalWithConfirmation from "./modalwithconfirmation";
 
 export default class Card {
-  constructor({ name, link, id }, cardSelector, handleImageClick, api, deleteConfirmationModal) {
-    this._name = name;
-    this._link = link;
-    this._id = id; 
+  constructor(data, cardSelector, handleImageClick, api) {
+    this._name = data.name;
+    this._link = data.link;
+    this._id = data._id;
 
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
-    this.api = api; 
+    this.api = api;
   }
 
   _getTemplate() {
@@ -27,7 +27,7 @@ export default class Card {
 
     const cardTitle = this._element.querySelector(".cards__name");
     cardTitle.textContent = this._name;
-   
+
     this._setEventListeners();
     return this._element;
   }
@@ -53,18 +53,28 @@ export default class Card {
   }
 
   _handleLikeIcon() {
-    if (this._element.querySelector(".cards__like-button").classList.contains("cards__like-button_active")) {
-      this.api.dislikeCard(this._id)
+    if (
+      this._element
+        .querySelector(".cards__like-button")
+        .classList.contains("cards__like-button_active")
+    ) {
+      this.api
+        .dislikeCard(this._id)
         .then((data) => {
-          this._element.querySelector(".cards__like-button").classList.remove("cards__like-button_active");
+          this._element
+            .querySelector(".cards__like-button")
+            .classList.remove("cards__like-button_active");
         })
         .catch((err) => {
           console.error("Error disliking card:", err);
         });
     } else {
-      this.api.likeCard(this._id)
+      this.api
+        .likeCard(this._id)
         .then((data) => {
-          this._element.querySelector(".cards__like-button").classList.add("cards__like-button_active");
+          this._element
+            .querySelector(".cards__like-button")
+            .classList.add("cards__like-button_active");
         })
         .catch((err) => {
           console.error("Error liking card:", err);
@@ -74,16 +84,17 @@ export default class Card {
 
   _handleDeleteIcon() {
     const deleteConfirmationModal = new ModalWithConfirmation({
-      modalSelector: '#delete-confirmation-modal',
+      modalSelector: "#delete-confirmation-modal",
       handleConfirm: () => {
         this._deleteCard();
-      }
+      },
     });
     deleteConfirmationModal.open();
   }
-  
+
   _deleteCard() {
-    this.api.deleteCard(this._id)
+    this.api
+      .deleteCard(this._id)
       .then(() => {
         this._element.remove();
       })
@@ -91,5 +102,4 @@ export default class Card {
         console.error("Error deleting card:", error);
       });
   }
-
 }

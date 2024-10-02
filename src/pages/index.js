@@ -203,7 +203,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       renderCard({
         name: card.name,
         link: card.link,
-        id: card._id,
+        _id: card._id,
         isLiked: card.isLiked,
         createdAt: card.createdAt,
       })
