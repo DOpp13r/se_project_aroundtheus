@@ -65,6 +65,11 @@ export default class Card {
       });
   }
 
+  handleRemoveCard() {
+    this._element.remove();
+    this._element = null;
+  }
+
   _handleLikeIcon() {
     if (
       this._element

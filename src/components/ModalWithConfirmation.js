@@ -9,9 +9,10 @@ export default class ModalWithConfirmation extends Modal {
   }
   setEventListeners() {
     super.setEventListeners();
+
     this._modalElement
-      .querySelector(".modal__form")
-      .addEventListener("submit", this._submitFunction);
+      .querySelector(".modal__button-delete")
+      .addEventListener("click", () => this._submitFunction());
   }
 
   // export default class ModalWithConfirmation extends Modal {
@@ -50,7 +51,7 @@ export default class ModalWithConfirmation extends Modal {
   //     });
   //   }
 
-  close() {
-    super.close();
-  }
+  // close() {
+  //   super.close();
+  // }
 }

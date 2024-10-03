@@ -45,7 +45,7 @@ function createCard(data) {
     data,
     cardTemplate,
     handleImageClick,
-    handleDeleteCard,
+    (card) => handleDeleteCard(card),
     api
   );
   return card.getView();
@@ -183,6 +183,8 @@ const deleteConfirmationModal = new ModalWithConfirmation({
   modalSelector: "#delete-confirmation-modal",
 });
 
+deleteConfirmationModal.setEventListeners();
+
 // function handleDeleteCard() {
 //   deleteConfirmationModal.open();
 // }
@@ -193,15 +195,12 @@ function handleDeleteCard(card) {
     api
       .deleteCard(card._id)
       .then(() => {
-        card.this._element.remove();
-        card.this._element = null;
+        card.handleRemoveCard();
         deleteConfirmationModal.close();
       })
       .catch((err) => {
         console.error("Error deleting card:", err);
       });
-
-    // use the api.deleteCard in here with the values you get from card
   });
 }
 
