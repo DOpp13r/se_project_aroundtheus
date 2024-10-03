@@ -181,18 +181,28 @@ function handleAddCardCreate(data) {
 
 const deleteConfirmationModal = new ModalWithConfirmation({
   modalSelector: "#delete-confirmation-modal",
-  handleConfirm: () => {
-    this._deleteCard();
-    {
-      this.api.deleteCard(this._id).then(() => {
-        this._element.remove();
-      });
-    }
-  },
 });
 
-function handleDeleteCard() {
+// function handleDeleteCard() {
+//   deleteConfirmationModal.open();
+// }
+
+function handleDeleteCard(card) {
   deleteConfirmationModal.open();
+  deleteConfirmationModal.setSubmitFunction(() => {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        card.this._element.remove();
+        card.this._element = null;
+        deleteConfirmationModal.close();
+      })
+      .catch((err) => {
+        console.error("Error deleting card:", err);
+      });
+
+    // use the api.deleteCard in here with the values you get from card
+  });
 }
 
 /*    Event Listeners    */
