@@ -185,10 +185,6 @@ const deleteConfirmationModal = new ModalWithConfirmation({
 
 deleteConfirmationModal.setEventListeners();
 
-// function handleDeleteCard() {
-//   deleteConfirmationModal.open();
-// }
-
 function handleDeleteCard(card) {
   deleteConfirmationModal.open();
   deleteConfirmationModal.setSubmitFunction(() => {

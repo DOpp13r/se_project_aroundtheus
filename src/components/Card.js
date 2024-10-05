@@ -1,5 +1,3 @@
-// import ModalWithConfirmation from "./modalwithconfirmation";
-
 export default class Card {
   constructor(
     { name, link, _id },
@@ -101,25 +99,4 @@ export default class Card {
         });
     }
   }
-
-  // _handleDeleteIcon() {
-  //   const deleteConfirmationModal = new ModalWithConfirmation({
-  //     modalSelector: "#delete-confirmation-modal",
-  //     handleConfirm: () => {
-  //       this._deleteCard();
-  //     },
-  //   });
-  //   deleteConfirmationModal.open();
-  // }
-
-  // _deleteCard() {
-  //   this.api
-  //     .deleteCard(this._id)
-  //     .then(() => {
-  //       this._element.remove();
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error deleting card:", error);
-  //     });
-  // }
 }
