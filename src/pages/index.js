@@ -95,6 +95,7 @@ profileAvatarEditButton.addEventListener("click", () => {
 const profileEditForm = document.forms["profile-edit-form"];
 const addCardForm = document.forms["add-card-form"];
 const profileAvatarForm = document.forms["profile-avatar-edit-form"];
+
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addCardForm);
 const avatarFormValidator = new FormValidator(config, profileAvatarForm);
@@ -115,6 +116,7 @@ function handleProfileAvatarUpdate(avatarUrl) {
     .then((data) => {
       // Update the avatar image
       userInfo.setAvatar(data);
+      avatarFormValidator.disableButton();
       profileAvatarEditModal.close();
     })
     .catch((err) => {
@@ -138,6 +140,7 @@ function handleProfileEditSubmit(data) {
     .then(() => {
       // Update the UI with the new user data
       userInfo.setUserInfo(data);
+      editFormValidator.disableButton();
       profileEditModal.close();
     })
     .catch((err) => {
@@ -156,9 +159,9 @@ function handleAddCardCreate(data) {
     .addCard(name, link)
     .then((cardData) => {
       renderCard(cardData);
-      addCardModal.close();
-      addCardForm.reset();
       addFormValidator.disableButton();
+      addCardForm.reset();
+      addCardModal.close();
     })
     .catch((err) => {
       console.error("Error adding card:", err);
@@ -191,16 +194,16 @@ function handleDeleteCard(card) {
 
 /*    Event Listeners    */
 profileEditButton.addEventListener("click", () => {
+  profileEditModal.open();
   const userData = userInfo.getUserInfo();
   profileNameInput.value = userData.name.trim();
   profileDescriptionInput.value = userData.job.trim();
   editFormValidator.resetValidation();
-  profileEditModal.open();
 });
 
 addCardButton.addEventListener("click", () => {
-  addFormValidator.resetValidation();
   addCardModal.open();
+  addFormValidator.resetValidation();
 });
 
 function handleImageClick(name, link) {
