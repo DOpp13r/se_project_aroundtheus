@@ -13,10 +13,8 @@ export default class ModalWithForm extends Modal {
   setModalLoad(isLoading) {
     if (isLoading) {
       this._modalButton.textContent = "Saving...";
-      this._modalButton.disabled = true;
     } else {
       this._modalButton.textContent = this._modalButtonText;
-      this._modalButton.disabled = false;
     }
   }
 
@@ -33,7 +31,6 @@ export default class ModalWithForm extends Modal {
     this._modalForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this._handleFormSubmit(this._getInputValues());
-      this.close();
     });
   }
 

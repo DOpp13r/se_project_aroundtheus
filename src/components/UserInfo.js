@@ -5,19 +5,18 @@ class UserInfo {
     this._avatarElement = document.querySelector(avatarSelector);
   }
 
-  setUserInfo({ name, description, avatar }) {
+  setUserInfo({ name, description }) {
     this._nameElement.textContent = name;
     this._jobElement.textContent = description;
-    if (avatar) {
-      this._avatarElement.src = avatar;
-    }
+  }
+  setAvatar({ avatar }) {
+    this._avatarElement.src = avatar;
   }
 
   getUserInfo() {
     return {
       name: this._nameElement.textContent,
       job: this._jobElement.textContent,
-      avatar: this._avatarElement.src,
     };
   }
 }

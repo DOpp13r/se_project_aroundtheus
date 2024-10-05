@@ -108,19 +108,13 @@ const previewImageModal = new ModalWithImage("#preview-image-modal");
 previewImageModal.setEventListeners();
 
 // Handle profile avatar update function
-function handleProfileAvatarUpdate(data) {
+function handleProfileAvatarUpdate(avatarUrl) {
+  profileAvatarEditModal.setModalLoad(true);
   api
-    .updateUserAvatar(data.avatar)
-    .then((userData) => {
+    .updateUserAvatar(avatarUrl)
+    .then((data) => {
       // Update the avatar image
-      const avatarElement = document.querySelector(".profile__avatar");
-      avatarElement.src = userData.avatar;
-      userInfo.setUserInfo({
-        name: userData.name,
-        description: userData.about,
-        avatar: userData.avatar,
-      });
-
+      userInfo.setAvatar(data);
       profileAvatarEditModal.close();
     })
     .catch((err) => {
@@ -138,17 +132,12 @@ function handleProfileAvatarUpdate(data) {
 
 /*    Functions for opening/closing modals    */
 function handleProfileEditSubmit(data) {
+  profileEditModal.setModalLoad(true);
   api
     .updateUserInfo(data.name, data.description)
-    .then((userData) => {
+    .then(() => {
       // Update the UI with the new user data
-      userInfo.setUserInfo({
-        name: userData.name,
-        description: userData.about,
-        avatar: userData.avatar,
-      });
-
-      // Close the modal
+      userInfo.setUserInfo(data);
       profileEditModal.close();
     })
     .catch((err) => {
@@ -162,7 +151,7 @@ function handleProfileEditSubmit(data) {
 function handleAddCardCreate(data) {
   const name = data.title;
   const link = data.link;
-
+  addCardModal.setModalLoad(true);
   api
     .addCard(name, link)
     .then((cardData) => {
