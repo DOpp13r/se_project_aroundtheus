@@ -45,7 +45,8 @@ function createCard(data) {
     data,
     cardTemplate,
     handleImageClick,
-    (card) => handleDeleteCard(card),
+    handleDeleteCard,
+    handleLikeCard,
     api
   );
   return card.getView();
@@ -88,8 +89,8 @@ const profileAvatarEditButton = document.querySelector(
 );
 profileAvatarEditButton.addEventListener("click", () => {
   profileAvatarEditModal.open();
-  profileAvatarInput.value = "";
 });
+profileAvatarEditModal.setEventListeners();
 
 /*    Form validators    */
 const profileEditForm = document.forms["profile-edit-form"];
@@ -109,13 +110,16 @@ const previewImageModal = new ModalWithImage("#preview-image-modal");
 previewImageModal.setEventListeners();
 
 // Handle profile avatar update function
-function handleProfileAvatarUpdate(avatarUrl) {
+function handleProfileAvatarUpdate(inputValues) {
+  console.log("inputValues:", inputValues);
+  console.log("inputValues.avatar:", inputValues.avatar);
+
   profileAvatarEditModal.setModalLoad(true);
   api
-    .updateUserAvatar(avatarUrl)
+    .updateUserAvatar(inputValues.avatar)
     .then((data) => {
       // Update the avatar image
-      userInfo.setAvatar(data);
+      userInfo.setAvatar(data.avatar);
       avatarFormValidator.disableButton();
       profileAvatarEditModal.close();
     })
@@ -192,6 +196,34 @@ function handleDeleteCard(card) {
   });
 }
 
+function handleImageClick(name, link) {
+  previewImageModal.open({ name, link });
+}
+
+function handleLikeCard(card) {
+  if (card.isLiked) {
+    api
+      .dislikeCard(card._id)
+      .then((data) => {
+        card.toggleLikeIcon();
+        card._isLiked = false;
+      })
+      .catch((err) => {
+        console.error("Error disliking card:", err);
+      });
+  } else {
+    api
+      .likeCard(card._id)
+      .then((data) => {
+        card.toggleLikeIcon();
+        card._isLiked = true;
+      })
+      .catch((err) => {
+        console.error("Error liking card:", err);
+      });
+  }
+}
+
 /*    Event Listeners    */
 profileEditButton.addEventListener("click", () => {
   profileEditModal.open();
@@ -206,28 +238,12 @@ addCardButton.addEventListener("click", () => {
   addFormValidator.resetValidation();
 });
 
-function handleImageClick(name, link) {
-  previewImageModal.open({ name, link });
-}
-
 /* Load user information and cards on page load */
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, cards]) => {
-    userInfo.setUserInfo({
-      name: userData.name,
-      description: userData.about,
-      avatar: userData.avatar,
-    });
-
-    cards.forEach((card) =>
-      renderCard({
-        name: card.name,
-        link: card.link,
-        _id: card._id,
-        isLiked: card.isLiked,
-        createdAt: card.createdAt,
-      })
-    );
+  .then(([data, cards]) => {
+    userInfo.setUserInfo(data);
+    section.setItems(cards);
+    section.renderItems();
   })
   .catch((err) => {
     console.error("Error loading user info or cards:", err);

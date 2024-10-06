@@ -33,9 +33,4 @@ export default class ModalWithForm extends Modal {
       this._handleFormSubmit(this._getInputValues());
     });
   }
-
-  close() {
-    this._modalForm.reset();
-    super.close();
-  }
 }

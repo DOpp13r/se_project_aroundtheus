@@ -1,18 +1,21 @@
 export default class Card {
   constructor(
-    { name, link, _id },
+    { name, link, _id, isLiked },
     cardSelector,
     handleImageClick,
     handleDeleteCard,
+    handleLikeCard,
     api
   ) {
     this._name = name;
     this._link = link;
     this._id = _id;
+    this._isLiked = isLiked;
 
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteCard = handleDeleteCard;
+    this._handleLikeCard = handleLikeCard;
     this.api = api;
   }
 
@@ -33,12 +36,7 @@ export default class Card {
     const cardTitle = this._element.querySelector(".cards__name");
     cardTitle.textContent = this._name;
 
-    if (localStorage.getItem(`card-${this._id}-liked`) === "true") {
-      this._element
-        .querySelector(".cards__like-button")
-        .classList.add("cards__like-button_active");
-    }
-
+    this.handleLikeIcon(this._isLiked);
     this._setEventListeners();
     return this._element;
   }
@@ -47,7 +45,7 @@ export default class Card {
     this._element
       .querySelector(".cards__like-button")
       .addEventListener("click", () => {
-        this._handleLikeIcon();
+        this._handleLikeCard(this);
       });
 
     this._element
@@ -68,35 +66,18 @@ export default class Card {
     this._element = null;
   }
 
-  _handleLikeIcon() {
-    if (
-      this._element
-        .querySelector(".cards__like-button")
-        .classList.contains("cards__like-button_active")
-    ) {
-      this.api
-        .dislikeCard(this._id)
-        .then((data) => {
-          this._element
-            .querySelector(".cards__like-button")
-            .classList.remove("cards__like-button_active");
-          localStorage.removeItem(`card-${this._id}-liked`);
-        })
-        .catch((err) => {
-          console.error("Error disliking card:", err);
-        });
-    } else {
-      this.api
-        .likeCard(this._id)
-        .then((data) => {
-          this._element
-            .querySelector(".cards__like-button")
-            .classList.add("cards__like-button_active");
-          localStorage.setItem(`card-${this._id}-liked`, true);
-        })
-        .catch((err) => {
-          console.error("Error liking card:", err);
-        });
+  toggleLikeIcon() {
+    this._element
+      .querySelector(".cards__like-button")
+      .classList.toggle("cards__like-button_active");
+  }
+
+  handleLikeIcon(isLiked) {
+    if (isLiked !== undefined) {
+      this._isLiked = isLiked;
+    }
+    if (this._isLiked) {
+      this.toggleLikeIcon();
     }
   }
 }
