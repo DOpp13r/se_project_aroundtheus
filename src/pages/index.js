@@ -137,9 +137,9 @@ function handleProfileEditSubmit(data) {
   profileEditModal.setModalLoad(true);
   api
     .updateUserInfo(data.name, data.description)
-    .then(() => {
+    .then((userData) => {
       // Update the UI with the new user data
-      userInfo.setUserInfo(data);
+      userInfo.setUserInfo(userData);
       editFormValidator.disableButton();
       profileEditModal.close();
     })
@@ -229,7 +229,6 @@ profileEditButton.addEventListener("click", () => {
 
 addCardButton.addEventListener("click", () => {
   addCardModal.open();
-  addFormValidator.resetValidation();
 });
 
 profileAvatarEditButton.addEventListener("click", () => {
