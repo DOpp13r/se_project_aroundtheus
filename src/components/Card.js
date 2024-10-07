@@ -36,7 +36,7 @@ export default class Card {
     const cardTitle = this._element.querySelector(".cards__name");
     cardTitle.textContent = this._name;
 
-    this.handleLikeIcon(this._isLiked);
+    this.renderLikeIcon();
     this._setEventListeners();
     return this._element;
   }
@@ -72,12 +72,20 @@ export default class Card {
       .classList.toggle("cards__like-button_active");
   }
 
-  handleLikeIcon(isLiked) {
-    if (isLiked !== undefined) {
-      this._isLiked = isLiked;
-    }
+  renderLikeIcon() {
     if (this._isLiked) {
-      this.toggleLikeIcon();
+      this._element
+        .querySelector(".cards__like-button")
+        .classList.add("cards__like-button_active");
+    } else {
+      this._element
+        .querySelector(".cards__like-button")
+        .classList.remove("cards__like-button_active");
     }
+  }
+
+  handleLikeIcon(isLiked) {
+    this._isLiked = isLiked;
+    this.toggleLikeIcon();
   }
 }

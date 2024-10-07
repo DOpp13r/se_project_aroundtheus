@@ -83,14 +83,9 @@ const profileAvatarEditModal = new ModalWithForm(
 );
 profileAvatarEditModal.setEventListeners();
 
-// Add an event listener to the button to open the avatar update modal
 const profileAvatarEditButton = document.querySelector(
   "#profile-avatar-edit-button"
 );
-profileAvatarEditButton.addEventListener("click", () => {
-  profileAvatarEditModal.open();
-});
-profileAvatarEditModal.setEventListeners();
 
 /*    Form validators    */
 const profileEditForm = document.forms["profile-edit-form"];
@@ -122,6 +117,7 @@ function handleProfileAvatarUpdate(inputValues) {
       userInfo.setAvatar(data.avatar);
       avatarFormValidator.disableButton();
       profileAvatarEditModal.close();
+      profileAvatarForm.reset();
     })
     .catch((err) => {
       console.error("Error updating avatar:", err);
@@ -201,12 +197,11 @@ function handleImageClick(name, link) {
 }
 
 function handleLikeCard(card) {
-  if (card.isLiked) {
+  if (card._isLiked) {
     api
       .dislikeCard(card._id)
       .then((data) => {
-        card.toggleLikeIcon();
-        card._isLiked = false;
+        card.handleLikeIcon(false);
       })
       .catch((err) => {
         console.error("Error disliking card:", err);
@@ -215,8 +210,7 @@ function handleLikeCard(card) {
     api
       .likeCard(card._id)
       .then((data) => {
-        card.toggleLikeIcon();
-        card._isLiked = true;
+        card.handleLikeIcon(true);
       })
       .catch((err) => {
         console.error("Error liking card:", err);
@@ -229,7 +223,7 @@ profileEditButton.addEventListener("click", () => {
   profileEditModal.open();
   const userData = userInfo.getUserInfo();
   profileNameInput.value = userData.name.trim();
-  profileDescriptionInput.value = userData.job.trim();
+  profileDescriptionInput.value = userData.job.trim(); // Update this line
   editFormValidator.resetValidation();
 });
 
@@ -238,10 +232,15 @@ addCardButton.addEventListener("click", () => {
   addFormValidator.resetValidation();
 });
 
+profileAvatarEditButton.addEventListener("click", () => {
+  profileAvatarEditModal.open();
+});
+
 /* Load user information and cards on page load */
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([data, cards]) => {
-    userInfo.setUserInfo(data);
+  .then(([userData, cards]) => {
+    const { name, about, avatar } = userData;
+    userInfo.setUserInfo({ name, description: about, avatar });
     section.setItems(cards);
     section.renderItems();
   })
