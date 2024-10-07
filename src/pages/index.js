@@ -197,7 +197,7 @@ function handleImageClick(name, link) {
 }
 
 function handleLikeCard(card) {
-  if (card._isLiked) {
+  if (card.isLiked) {
     api
       .dislikeCard(card._id)
       .then((data) => {
@@ -239,7 +239,7 @@ profileAvatarEditButton.addEventListener("click", () => {
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     const { name, about, avatar } = userData;
-    userInfo.setUserInfo({ name, description: about, avatar });
+    userInfo.setUserInfo({ name, about, avatar });
     section.setItems(cards);
     section.renderItems();
   })
