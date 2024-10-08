@@ -23,11 +23,18 @@
 
       <main class="content page__section">
         <section class="profile">
-          <img
-            src="<%=require('./images/jacques-cousteau.png')%>"
-            alt="Jacques Cousteau"
-            class="profile__image"
-          />
+          <div class="profile__avatar-container">
+            <img
+              src="<%=require('./images/jacques-cousteau.png')%>"
+              alt="Jacques Cousteau"
+              class="profile__avatar"
+            />
+            <button
+              class="profile__avatar-edit-button"
+              id="profile-avatar-edit-button"
+              type="button"
+            ></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__name">Jacques Cousteau</h1>
             <button
@@ -168,6 +175,47 @@
           />
           <p class="modal__image-caption" id="modal-image-caption"></p>
         </div>
+      </div>
+    </div>
+
+    <!--  Edit Profile Picture Modal -->
+    <div class="modal" id="profile-avatar-edit-modal">
+      <div class="modal__container modal__container-avatar">
+        <button
+          class="modal__close"
+          id="modal-close-button"
+          type="button"
+        ></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" id="profile-avatar-edit-form">
+          <label for="profile-avatar-input" class="modal__label">
+            <input
+              class="modal__input"
+              id="profile-avatar-input"
+              name="avatar"
+              type="url"
+              placeholder="Enter the image URL"
+              required
+            />
+            <span class="modal__error" id="profile-avatar-input-error"></span>
+          </label>
+          <button class="modal__button" type="submit" disabled>Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!--  Delete Modal  -->
+    <div class="modal" id="delete-confirmation-modal">
+      <div class="modal__container modal__container-delete">
+        <button
+          class="modal__close"
+          id="modal-close-button"
+          type="button"
+        ></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <button class="modal__button modal__button-delete" type="button">
+          Yes
+        </button>
       </div>
     </div>
 
